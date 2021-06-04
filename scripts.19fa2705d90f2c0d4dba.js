@@ -1,0 +1,1 @@
+const onScrollfn=()=>{var s=window.scrollY;let c=document.querySelector(".sticky");c&&(s>=50?c.classList.add("nav-sticky"):c.classList.remove("nav-sticky"))};

@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "firstName": "Parag Saxena",
+      "email": "saxenaparag8@gmail.com",
+      "password": "password1",
+      "cnfpassword": "password1",
+      "phoneNo": 9079311392,
+      "landInfo": [
+        {
+          "address": "MDV Nagar",
+          "landmark": "Chungi Chawki",
+          "pincode": 334001,
+          "state": "Rajasthan",
+          "district": "Bikaner",
+          "sizeofland": 200,
+          "sizeofLandUnit": "Acre",
+          "waterSource": "Canal System",
+          "infoAboutCrop": "Wheat,Rice,Dhaan"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "name": "Rahul Sethia",
+      "email": "rahulsethia085@gmail.com",
+      "password": "rahul123",
+      "cnfpassword": "rahul123",
+      "phoneNo": 9765645541,
+      "landInfo": [
+        {
+          "address": "JNV Coloney",
+          "landmark": "Karni Nagar",
+          "pincode": 334001,
+          "state": "Rajasthan",
+          "district": "Bikaner",
+          "sizeofland": 1000,
+          "sizeofLandUnit": "Acre",
+          "waterSource": "Canal System",
+          "infoAboutCrop": "Wheat"
+        }
+      ],
+      "id": 2
+    }
+  ]
+}

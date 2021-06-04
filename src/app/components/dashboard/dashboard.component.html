@@ -1,0 +1,80 @@
+<dashboard-header [userData]="userData"></dashboard-header>
+<section class="section bg-services p-0" id="services">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="title-box text-right">
+          <button
+            class="btn btn-primary mt-3 btn-xl"
+            (click)="reqForSoil(requestForSoil)"
+          >
+            Request For Soil Testing
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-header pb-0">
+        <h6 class="card-title">My Testing Request</h6>
+      </div>
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <th>ID</th>
+            <th>Land Mark Name</th>
+          </thead>
+          <tbody>
+            <td>1</td>
+            <td>Karni Nagar</td>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #requestForSoil let-c="close" let-d="dismiss">
+  <div class="modal-header bg-white">
+    <h6 class="modal-title" id="myModalLabel">Choose Land Type</h6>
+    <button
+      type="button"
+      class="close"
+      (click)="c('close modal')"
+      data-dismiss="modal"
+      aria-hidden="true"
+    >
+      &times;
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="form-group d-flex">
+      <label for="soilTestingEarlier" class="col-form-label-lg col-10"
+        >Soil Tested Earlier</label
+      >
+      <select
+        name="soilTestingEarlier"
+        (change)="changeSoilTesting(soilTestingEarlier)"
+        [(ngModel)]="soilTestingEarlier"
+        class="form-control col-2"
+      >
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+    </div>
+    <div class="col-sm-12" *ngIf="!showTesting">
+      <button
+        class="btn btn-light btn-block btn-lg"
+        *ngFor="let lt of requestType"
+        (click)="requestForLand(lt.id)"
+      >
+        <h6 class="d-flex justify-content-center">{{ lt.name }}</h6>
+      </button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-outline-dark btn-sm" (click)="c('close modal')">
+      Cancel
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="d-flex justify-content-center mt-5 pt-4">
+        <div class="col-lg-4" *ngIf="myLand ==1">
+            <div class="pricing-box mt-4">
+                <h4 class="form-title mb-4 text-center font-weight-bold">For Own Land</h4>
+                <form class="registration-form" id="self-form" >
+                    <label class="text-muted">First Name</label>
+                    <input type="text" id="address" class="form-control mb-4 registration-input-box">
+                    <label class="text-muted">Last Name</label>
+                    <input type="text" id="district" class="form-control mb-4 registration-input-box">
+                    <label class="text-muted">Email</label>
+                    <input type="email" id="City" class="form-control mb-4 registration-input-box">
+                    <button class="btn btn-primary" (click)="submitRequest()">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-4" *ngIf="myLand==2">
+            <div class="pricing-box mt-4">
+                <h4 class="form-title mb-4 text-center font-weight-bold">For Someone else Land</h4>
+                <form class="registration-form" id="someone-else-form">
+                    <label class="text-muted">Name</label>
+                    <input type="text" id="exampleInputName1" class="form-control mb-4 registration-input-box">
+                    <label class="text-muted">Address</label>
+                    <input type="text" id="exampleInputName2" class="form-control mb-4 registration-input-box">
+                    <label class="text-muted">Phone No.</label>
+                    <input type="number" id="exampleInputEmail1" class="form-control mb-4 registration-input-box">
+                    <label class="text-muted">Land Size</label>
+                    <input type="number" id="exampleInputEmail11" class="form-control mb-4 registration-input-box">
+                    <button class="btn btn-primary" (click)="submitRequest()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

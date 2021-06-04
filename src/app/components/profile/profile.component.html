@@ -1,0 +1,33 @@
+<dashboard-header [userData]="userData"></dashboard-header>
+<div class="col-lg-8">
+  <div class="pricing-box mt-4">
+    <img
+      class="img-fluid pi"
+      src="https://robohash.org/{{ userData.name }}"
+      alt="{{ userData.name }}"
+    />
+    <h4 class="f-20">{{ userData.name }}</h4>
+
+    <div class="mt-4 pt-2">
+      <table class="table table-sm table-borderless table-responsive">
+        <h3 class="mb-2 f-18">Contact Info</h3>
+        <tbody>
+          <tr>
+            <th>Email</th>
+            <td>:</td>
+            <td>{{ userData.email }}</td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>:</td>
+            <td>(+91)-{{ userData.phoneNo }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-4 pt-2 text-muted">
+      Semper urna veal tempus pharetra elit habisse platea dictumst.
+    </p>
+  </div>
+</div>

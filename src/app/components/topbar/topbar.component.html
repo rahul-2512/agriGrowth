@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- LOGO -->
+    
+    <span class="navbar-brand" routerLink="/dashboard">  <img src="assets/images/logo.png" alt="" height="23" /> &nbsp;AgriGrowth</span>
+    <button
+    class="navbar-toggler"
+    type="button"
+    aria-controls="navbarContent"
+    [attr.aria-expanded]="!collapsed"
+    aria-label="Toggle navigation"
+    (click)="collapsed = !collapsed"
+  >
+  <span class="navbar-toggler-icon"></span>
+  </button>
+   
+    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link smoothlink">Home</a>
+        </li>
+        <li class="nav-item">
+          <a
+            pageScroll
+            href="javascript:void(0)"
+            (click)="fullPageScroll('#about')"
+            class="nav-link smoothlink"
+            >About</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            pageScroll
+            href="javascript:void(0)"
+            (click)="fullPageScroll('#howitworks')"
+            class="nav-link smoothlink"
+            >How It Works</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            pageScroll
+            href="javascript:void(0)"
+            (click)="fullPageScroll('#team')"
+            class="nav-link smoothlink"
+            >Team</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            pageScroll
+            href="javascript:void(0)"
+            (click)="fullPageScroll('#contact')"
+            class="nav-link smoothlink"
+            >Contact</a
+          >
+        </li>
+      </ul>
+
+      <ul class="navbar-nav navbar-center">
+        <li
+          class="nav-item d-inline-block d-lg-none"
+          *ngIf="!ss.user"
+        >
+          <a routerLink="/signup" class="nav-link">Sign Up</a>
+        </li>
+        <li
+          class="nav-item d-inline-block d-lg-none"
+          *ngIf="ss.user"
+        >
+          <a routerLink="/dashboard" class="nav-link">Dashboard</a>
+        </li>
+      </ul>
+
+      <div class="navbar-button d-none d-lg-inline-block">
+        <a
+          routerLink="/signup"
+          class="btn btn-sm btn-soft-primary btn-round"
+          *ngIf="!ss.user"
+          >Sign Up</a
+        >
+        <a
+          routerLink="/dashboard"
+          class="btn btn-sm btn-soft-primary btn-round"
+          *ngIf="ss.user"
+          >Dashboard</a
+        >
+      </div>
+    </div>
+   
+  </div>
+</nav>

@@ -1,0 +1,317 @@
+<div class="account-home-btn d-none d-sm-block">
+  <a routerLink="/" class="text-primary"><i class="fa fa-home h1"></i></a>
+</div>
+<section class="bg-account-pages vh-100">
+  <div class="display-table">
+    <div class="display-table-cell">
+      <div class="container">
+        <div class="row no-gutters align-items-center">
+          <div class="col-lg-12">
+            <div class="login-box">
+              <div class="row align-items-center no-gutters">
+                <div class="col-lg-6">
+                  <div class="bg-light">
+                    <div class="row justify-content-center">
+                      <div class="col-lg-10">
+                        <div
+                          class="
+                            home-img
+                            login-img
+                            text-center
+                            d-none d-lg-inline-block
+                          "
+                        >
+                          <div class="animation-2"></div>
+                          <div class="animation-3"></div>
+
+                          <img
+                            src="assets/images/img-4.png"
+                            class="img-fluid"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-11">
+                      <div class="p-4">
+                        <div class="text-center mt-3">
+                          <a href="#"
+                            ><img
+                              src="assets/images/logo.png"
+                              alt=""
+                              height="60"
+                          /></a>
+                          <p class="text-muted mt-2">
+                            Sign up for a new Account
+                          </p>
+                        </div>
+                        <div class="p-3 custom-form" [hidden]="!first_step">
+                          <p class="text-muted text-center text-uppercase h3">
+                            Step - I
+                          </p>
+                          <form #stepFirst="ngForm">
+                            <div class="form-group">
+                              <label for="name">Name</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step1.name"
+                                class="form-control registration-input-box"
+                                name="name"
+                                #name="ngModel"
+                                required placeholder="Name"
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              <label for="email">Email</label>
+                              <input
+                                type="email"
+                                [(ngModel)]="step1.email"
+                                class="form-control registration-input-box"
+                                name="email"
+                                #email="ngModel"
+                                required placeholder="Enter Email"
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              <label for="userpassword">Password</label>
+                              <input
+                                type="password"
+                                [(ngModel)]="step1.password"
+                                class="form-control registration-input-box"
+                                autocomplete
+                                name="userpassword"
+                                #userpassword="ngModel"
+                                required placeholder="Enter password"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="usercnfpassword">Confirm Password</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step1.cnfpassword"
+                                class="form-control registration-input-box"
+                                autocomplete
+                                name="usercnfpassword"
+                                #usercnfpassword="ngModel"
+                                required placeholder="Confirm password"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="userphone">Phone Number</label>
+                              <input
+                                type="number"
+                                [(ngModel)]="step1.phoneNo"
+                                class="form-control registration-input-box"
+                                name="userphone"
+                                #userphone="ngModel"
+                                required placeholder="Enter Phone Number"
+                              />
+                            </div>
+
+                            <div class="mt-3">
+                              <button
+                                type="submit"
+                                (click)="firstStep()"
+                                class="btn btn-primary"
+                              >
+                                Next &rarr;
+                              </button>
+                            </div>
+
+                            <div class="mt-4 mb-0 text-center">
+                              <p class="mb-0">
+                                Don't have an account ?
+                                <a routerLink="/home" class="text-success"
+                                  >Sign in</a
+                                >
+                              </p>
+                            </div>
+                          </form>
+                        </div>
+
+                        <div class="p-3 custom-form" [hidden]="!second_step">
+                          <p class="text-muted text-center text-uppercase h3">
+                            Step - II
+                          </p>
+                          <form #stepForm2="ngForm">
+                            <div class="form-group">
+                              <label for="address">Address</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step2.address"
+                                class="form-control registration-input-box"
+                                name="address"
+                                required placeholder="Enter Address"
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              <label for="landmark">Land Mark</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step2.landmark"
+                                class="form-control registration-input-box"
+                                name="landmark"
+                                required placeholder="Enter landmark"
+                              />
+                            </div>
+
+                            <div class="form-group">
+                              <label for="pincode">Pincode</label>
+                              <input
+                                type="number" autocomplete
+                                [(ngModel)]="step2.pincode"
+                                class="form-control registration-input-box"
+                                name="pincode"
+                                required placeholder="Pincode"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="state">State</label>
+                              <select
+                                name="state"
+                                required
+                                [(ngModel)]="states"
+                                class="form-control registration-input-box"
+                                (change)="districtList()"
+                              >
+                                <option value="undefined">Select State</option>
+                                <option
+                                  *ngFor="let state of state_List"
+                                  [ngValue]="state"
+                                >
+                                  {{ state.state_name }}
+                                </option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="district">District</label>
+                              <select
+                                name="district"
+                                required
+                                (change)="selectD()"
+                                [(ngModel)]="districts"
+                                class="form-control registration-input-box"
+                              >
+                                <option value="">Select District</option>
+                                <option
+                                  *ngFor="let district of district_List"
+                                  [ngValue]="district"
+                                >
+                                  {{ district.district_name }}
+                                </option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="sizeofLand">Size of Land</label>
+                              <div class="input-group">
+                                <input
+                                  type="number"
+                                  [(ngModel)]="step2.sizeofland"
+                                  required placeholder="Size of Land"
+                                  class="form-control registration-input-box"
+                                  name="sizeofLand"
+                                />
+                                <select
+                                  name="sizeofLandUnit"
+                                  [(ngModel)]="step2.sizeofLandUnit"
+                                  class="form-control registration-input-box col-3"
+                                >
+                                  <option value="Acre">Acre</option>
+                                  <option value="Bigha">Bigha</option>
+                                  <option value="Kila">Kila</option>
+                                  <option value="Marba">Marba</option>
+                                  <option value="meter2">Meter2</option>
+                                  <option value="yard">Yard</option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="WaterSource">Water Source</label>
+                              <select
+                                name="WaterSource"
+                                required
+                                [(ngModel)]="step2.waterSource"
+                                class="form-control registration-input-box"
+                              >
+                                <option value="">Select Source</option>
+                                <option value="Canal System">
+                                  Canal System
+                                </option>
+                                <option value="Rain water harvesting">
+                                  Rain water harvesting
+                                </option>
+                                <option value="Tube well">Tube well</option>
+                              </select>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="infoAboutCrop"
+                                >Information About Crop</label
+                              >
+                              <input
+                                type="text"
+                                class="form-control registration-input-box"
+                                name="infoAboutCrop"
+                                [(ngModel)]="step2.infoAboutCrop"
+                                required placeholder="What type of Crop you Produce"
+                              />
+                            </div>
+
+                            <div class="custom-control custom-checkbox">
+                              <input
+                                type="checkbox"
+                                name="addMoreLand"
+                                id="addMoreLand"
+                                (change)="moreLand()"
+                                [(ngModel)]="addMoreLand"
+                                class="custom-control-input"
+                              />
+                              <label
+                                class="custom-control-label"
+                                for="addMoreLand"
+                                >I've Other Land Also</label
+                              >
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-3">
+                              <button
+                                type="button"
+                                (click)="prevStep()"
+                                class="btn btn-primary float-left"
+                              >
+                                &larr; Back
+                              </button>
+                              <button
+                                type="submit"
+                                (click)="signUp()"
+                                [disabled]="disableSignUp"
+                                class="btn btn-primary float-right"
+                              >
+                                Signup
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+  </div>
+</section>

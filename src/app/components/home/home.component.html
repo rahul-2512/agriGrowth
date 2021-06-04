@@ -1,0 +1,379 @@
+<app-topbar></app-topbar>
+<section class="bg-home bg-light" id="home">
+  <div class="container mt-4">
+    <div class="row align-items-center">
+      <div [class]="{ 'col-lg-6': !ssuser, 'col-sm-12': ssuser }">
+        <ngb-carousel
+          *ngIf="images"
+          [showNavigationArrows]="true"
+          [showNavigationIndicators]="false"
+        >
+          <ng-template ngbSlide *ngFor="let image of images">
+            <div class="img-wrapper">
+              <img [src]="image" alt="Random slide" />
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="col-lg-5 offset-lg-1" *ngIf="!ssuser">
+        <app-login *ngIf="isLoginEnable"></app-login>
+      </div>
+    </div>
+
+    <!-- END HOME -->
+  </div>
+</section>
+
+<section class="section bg-services" id="about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="title-box text-center">
+          <h3 class="title-heading mt-4">About us</h3>
+          <p class="text-muted f-17 mt-3">Know what we do</p>
+
+          <img
+            src="assets/images/home-border.png"
+            height="15"
+            class="mt-3"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 pt-4">
+      <div class="col-lg-4">
+        <div class="services-box p-4 mt-4">
+          <div class="services-icon bg-soft-primary">
+            <i class="fa fa-users text-primary"></i>
+          </div>
+
+          <h5 class="mt-4">About us</h5>
+          <p class="text-muted mt-3">
+            Quisque rhoncus lectus ut lectus hendrerit at convallis lorem ornare
+            pellentesque lobortis hendrerit mattis.
+          </p>
+
+          <div class="mt-3">
+            <a href="" class="text-primary f-16"
+              >Learn More <i class="fa fa-arrow-right ml-1"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="services-box p-4 mt-4">
+          <div class="services-icon bg-soft-primary">
+            <i class="fa fa-eye text-primary"></i>
+          </div>
+
+          <h5 class="mt-4">Vision</h5>
+          <p class="text-muted mt-3">
+            Vestibulum eu tortor artett tortor rhoncus porta quis on metus morbi
+            comodo nisi vitae neque aliquam aliquam.
+          </p>
+
+          <div class="mt-3">
+            <a href="" class="text-primary f-16"
+              >Learn More <i class="fa fa-arrow-right ml-1"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="services-box p-4 mt-4">
+          <div class="services-icon bg-soft-primary">
+            <i class="fa fa-link text-primary"></i>
+          </div>
+
+          <h5 class="mt-4">Future Scope</h5>
+          <p class="text-muted mt-3">
+            Aliquam dictum mollis sem sed hendrerit tempus sed class aptent
+            taciti sociosqu litora conubia himenaeos.
+          </p>
+
+          <div class="mt-3">
+            <a href="" class="text-primary f-16"
+              >Learn More <i class="fa fa-arrow-right ml-1"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- START CTA -->
+<section class="section bg-light bg-cta">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="text-center">
+          <h2>Get Started With <span class="text-primary">AgriGrowth</span></h2>
+          <p class="text-muted mt-3">
+            Quisque iaculis urna eu magna semper quis ultrices lectus efficitur
+            Praesent convallis velit urna, vitae tristique tellus feugiat a
+            maecenas diam metus convallis id cursus vel tellus.<br />
+            Curabitur ullamcorper feugiat convallis.
+          </p>
+
+          <div class="mt-4 pt-2">
+            <a
+              href="javascript:void(0)"
+              routerLink="/"
+              class="btn btn-soft-primary btn-round mr-3 btn-rounded"
+              >Request a demo</a
+            >
+            <a
+              href="javascript:void(0)"
+              routerLink="/signup"
+              class="btn btn-primary btn-round btn-rounded"
+              >Get Started Now</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END CTA -->
+
+<section class="section" id="team">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="title-box text-center">
+          <h3 class="title-heading mt-4">Meet Our Team</h3>
+          <p class="text-muted f-17 mt-3">
+            Vivamus ac nulla ultrices laoreet neque mollis mi morbi elementum
+            mauris sit amet arcu <br />
+            fringilla auctor In eleifend maximus nisi sed vulputate.
+          </p>
+
+          <img
+            src="assets/images/home-border.png"
+            height="15"
+            class="mt-3"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="team-carousel">
+          <div class="team-box p-3">
+            <div class="row align-items-center">
+              <div class="col-lg-6">
+                <div class="mt-4">
+                  <h5 class="mt-2">Calvin Hubbard</h5>
+                  <p class="team-badge bg-primary text-white rounded f-14 mt-2">
+                    #Calvin
+                  </p>
+                  <p class="text-muted mt-3">
+                    Anterdum maleada fames Integer molestie ante primis nulla
+                    facibus felis ulputate platea elit.
+                  </p>
+
+                  <div class="team-social mt-4 pt-2">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-facebook"></i
+                        ></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-twitter"></i
+                        ></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-google"></i
+                        ></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-pinterest"></i
+                        ></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="mt-4">
+                  <h5 class="mt-2">Jeremiah Eskew</h5>
+                  <p class="team-badge bg-primary text-white rounded f-14 mt-2">
+                    #Jeremiah
+                  </p>
+                  <p class="text-muted mt-3">
+                    Anterdum maleada fames Integer molestie ante primis nulla
+                    facibus felis ulputate platea elit.
+                  </p>
+
+                  <div class="team-social mt-4 pt-2">
+                    <ul class="list-inline mb-0">
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-facebook"></i
+                        ></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-twitter"></i
+                        ></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-google"></i
+                        ></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="" class="text-reset"
+                          ><i class="fa fa-pinterest"></i
+                        ></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END TEAM -->
+
+<!-- START CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="title-box text-center">
+          <h3 class="title-heading mt-4">Let's talk about everything!</h3>
+          <p class="text-muted f-17 mt-3">
+            Vivamus ac nulla ultrices laoreet neque mollis mi morbi elementum
+            mauris sit amet arcu <br />
+            fringilla auctor In eleifend maximus nisi sed vulputate.
+          </p>
+
+          <img
+            src="assets/images/home-border.png"
+            height="15"
+            class="mt-3"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5 pt-4">
+      <div class="col-lg-6">
+        <div class="mt-4 home-img text-center">
+          <div class="animation-2"></div>
+          <div class="animation-3"></div>
+          <img src="assets/images/img-4.png" class="img-fluid" alt="" />
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="custom-form mt-4">
+          <div id="message"></div>
+          <form
+            method="post"
+            action="php/contact.php"
+            name="contact-form"
+            id="contact-form"
+          >
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group mt-3">
+                  <label class="contact-lable">First Name</label>
+                  <input
+                    name="name"
+                    id="name"
+                    class="form-control"
+                    type="text"
+                  />
+                </div>
+              </div>
+
+              <div class="col-lg-6">
+                <div class="form-group mt-3">
+                  <label class="contact-lable">Last Name</label>
+                  <input
+                    name="name"
+                    id="lastname"
+                    class="form-control"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group mt-3">
+                  <label class="contact-lable">Email Address</label>
+                  <input
+                    name="email"
+                    id="email"
+                    class="form-control"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group mt-3">
+                  <label class="contact-lable">Subject</label>
+                  <input
+                    name="subject"
+                    id="subject"
+                    class="form-control"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group mt-3">
+                  <label class="contact-lable">Your Message</label>
+                  <textarea
+                    name="comments"
+                    id="comments"
+                    rows="5"
+                    class="form-control"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 mt-3 text-right">
+                <input
+                  id="submit"
+                  name="send"
+                  class="submitBnt btn btn-primary btn-round"
+                  value="Send Message"
+                  type="submit"
+                />
+                <div id="simple-msg"></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END CONTACT -->

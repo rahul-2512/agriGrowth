@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <span class="navbar-brand" routerLink="/dashboard">AgriGrowth</span>
+  <button
+    class="navbar-toggler"
+    type="button"
+    aria-controls="navbarContent"
+    [attr.aria-expanded]="!collapsed"
+    aria-label="Toggle navigation"
+    (click)="collapsed = !collapsed"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div
+    class="navbar-collapse"
+    [class.collapse]="collapsed"
+    id="navbarSupportedContent"
+  >
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/profile">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/upload">Upload</a>
+      </li>
+    </ul>
+  </div>
+  <span class="mb-0 mx-2 text-light d-none d-lg-block"
+    >Hi, {{ userData.name }}</span
+  >
+  <div ngbDropdown class="d-none d-lg-inline-block" [class.collapse]="collapsed">
+    <img
+      class="img-fluid pi"
+      src="https://robohash.org/{{ userData.name }}"
+      alt="{{ userData.name }}"
+    />
+    <button
+      ngbDropdownToggle
+      type="button"
+      class="btn btn-xs dropdown-toggle dropdown-toggle-split text-white"
+      data-toggle="dropdown"
+    ></button>
+
+    <div
+      ngbDropdownMenu
+      aria-labelledby="navbarDropdown2"
+      class="dropdown-menu dropdown-menu-right"
+    >
+      <a ngbDropdownItem routerLink="/" (click)="logout()">Logout</a>
+    </div>
+  </div>
+
+</nav>

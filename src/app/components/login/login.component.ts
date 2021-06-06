@@ -23,21 +23,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  loginIn(){
-    console.log(this.userLoginForm);
-    
-    this.ht.getUser().subscribe((res:any)=> {
-      res.forEach((user:any) => {
-        if(user.email === this.userLoginForm.email && user.password === this.userLoginForm.password){
-          console.log(user);
-          
-          this.gs.isAuthenticated(user);
-        } else {
-          this.toastr.error('Email or Password Might be incorrect')
-        }
-        
-      });
-      
+  loginIn(){    
+    this.ht.getUser().subscribe((users:any)=> {
+      for (let index = 0; index < users.length; index++) {
+        if(users[index] && users[index].email === this.userLoginForm.email && users[index].password === this.userLoginForm.password){            
+          this.gs.isAuthenticated(users[index]);
+          return;
+        } 
+        this.toastr.error('Email or Password Might be incorrect')        
+      }
     }, (error)=> {
       this.toastr.error('Something Went Wrong, Try Again Later');
     })

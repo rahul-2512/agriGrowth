@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  images = [1,2,3,4].map((n) => `assets/images/slider/slider-${n}.png`);
+  images = [1,2,3,4,5].map((n) => `assets/images/slider/slider-${n}.png`);
   isLoginEnable = true;
   isSignUp = false;
   ssuser: any;

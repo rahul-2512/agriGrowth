@@ -48,7 +48,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="form-group d-flex">
+    <div class="form-group d-flex mb-0">
       <label for="soilTestingEarlier" class="col-form-label-lg col-10"
         >Soil Tested Earlier</label
       >
@@ -58,11 +58,14 @@
         [(ngModel)]="soilTestingEarlier"
         class="form-control col-2"
       >
-        <option value="true">Yes</option>
-        <option value="false">No</option>
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
       </select>
+
+      
     </div>
-    <div class="col-sm-12" *ngIf="!showTesting">
+    <hr class="mt-0">
+    <div class="card card-body" *ngIf="showTesting==='no'">
       <button
         class="btn btn-light btn-block btn-lg"
         *ngFor="let lt of requestType"
@@ -71,6 +74,80 @@
         <h6 class="d-flex justify-content-center">{{ lt.name }}</h6>
       </button>
     </div>
+    <div class="card" *ngIf="showTesting==='yes'">
+      <div class="card-header">
+        <h5 class="card-title">Enter Soil Details</h5>
+        <p class="card-subtitle small">Enter details from Downloaded Report</p>
+      </div>
+      <div class="card-body">
+        <form #getSoilData>
+          <div class="form-group">
+            <label for="name">Soil Type</label>
+            <input
+              type="text"
+              [(ngModel)]="soilData.soiltype"
+              class="form-control registration-input-box"
+              name="soiltype"
+              #soiltype="ngModel"
+              required placeholder="Soil Type"
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Temperature</label>
+            <input
+              type="text"
+              [(ngModel)]="soilData.temp"
+              class="form-control registration-input-box"
+              name="temp"
+              #temp="ngModel"
+              required placeholder="Enter Temperature"
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">Humidity</label>
+            <input
+              type="text"
+              [(ngModel)]="soilData.humidity"
+              class="form-control registration-input-box"
+              name="humidity"
+              #humidity="ngModel"
+              required placeholder="Enter Humidity"
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">PH Value</label>
+            <input
+              type="text"
+              [(ngModel)]="soilData.ph"
+              class="form-control registration-input-box"
+              name="ph"
+              #ph="ngModel"
+              required placeholder="Enter ph"
+            />
+          </div>
+          <div class="form-group">
+            <label for="name">RainFall</label>
+            <input
+              type="text"
+              [(ngModel)]="soilData.rainfall"
+              class="form-control registration-input-box"
+              name="rainfall"
+              #rainfall="ngModel"
+              required placeholder="Rainfall"
+            />
+          </div>
+          <button
+          type="submit"
+          (click)="submit()"
+          class="btn btn-primary float-right"
+        >
+          Submit
+        </button>
+        </form>
+      </div>
+     
+    </div>
+
   </div>
   <div class="modal-footer">
     <button class="btn btn-outline-dark btn-sm" (click)="c('close modal')">

@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "firstName": "Parag Saxena",
+      "name": "Parag Saxena",
       "email": "saxenaparag8@gmail.com",
       "password": "password1",
       "cnfpassword": "password1",

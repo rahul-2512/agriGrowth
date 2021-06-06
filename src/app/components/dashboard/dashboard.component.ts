@@ -10,9 +10,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   
-  soilTestingEarlier = false;
-  showTesting = false;
+  soilTestingEarlier = 'no';
+  showTesting = 'no';
   userData: any;
+  soilData = {
+    soiltype: '',
+    temp: '',
+    humidity: '',
+    ph: '',
+    rainfall: '',
+  }
   constructor(
     private modalService: NgbModal,
     private router: Router,
@@ -24,8 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userData = this.gs.getUserData();
-    console.log(this.userData);
-    
+    // console.log(this.userData);    
   }
 
   requestType = [
@@ -33,15 +39,18 @@ export class DashboardComponent implements OnInit, OnDestroy {
     { id: 2, name: 'For Someone else Land' },
   ];
 
-  changeSoilTesting(d: any) {
+  changeSoilTesting(d: string) {    
     this.showTesting = d;
-    console.log(this.showTesting);
   }
 
   reqForSoil(content: any) {
     this.modalService.open(content, { size: 'lg' });
   }
 
+  submit(){
+    console.log(this.soilData);
+    
+  }
   requestForLand(id: any) {
     console.log(id);
     this.gs.setRequestType(id);

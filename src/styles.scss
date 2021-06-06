@@ -22,3 +22,9 @@
 section{
     padding: 80px 0!important;
 }
+
+.carousel-inner{
+  @extend .d-lg-flex;
+  @extend .justify-content-between;
+}
+

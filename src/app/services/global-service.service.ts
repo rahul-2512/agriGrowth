@@ -20,8 +20,17 @@ export class GlobalService {
     this.router.navigate(['/home']);
   }
 
+  isAuthorize(){
+    if(sessionStorage.user){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   getUserData(){
     this.userInfo = JSON.parse(sessionStorage.user);
+    this.isAuthorize();
     return this.userInfo;
   }
 

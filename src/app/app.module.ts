@@ -19,6 +19,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { HeaderComponent } from './components/dashboard/header/header.component';
+import { LoginGuardService } from './services/login-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,7 @@ import { HeaderComponent } from './components/dashboard/header/header.component'
     FormlyBootstrapModule,
   ],
   entryComponents: [],
-  providers: [],
+  providers: [LoginGuardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -43,7 +43,7 @@ import { LoginGuardService } from './services/login-guard.service';
     NgxPageScrollCoreModule.forRoot({ duration: 800 }),
     ToastrModule.forRoot({
       timeOut: 5000,
-      preventDuplicates: true
+      preventDuplicates: true,
     }),
     ReactiveFormsModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),

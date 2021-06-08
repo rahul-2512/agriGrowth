@@ -6,6 +6,7 @@
       "password": "password1",
       "cnfpassword": "password1",
       "phoneNo": 9079311392,
+      "isAdmin": true,
       "landInfo": [
         {
           "address": "MDV Nagar",
@@ -14,7 +15,7 @@
           "state": "Rajasthan",
           "district": "Bikaner",
           "sizeofland": 200,
-          "sizeofLandUnit": "Acre",
+          "landSizeUnit": "Acre",
           "waterSource": "Canal System",
           "infoAboutCrop": "Wheat,Rice,Dhaan"
         }
@@ -35,12 +36,55 @@
           "state": "Rajasthan",
           "district": "Bikaner",
           "sizeofland": 1000,
-          "sizeofLandUnit": "Acre",
+          "landSizeUnit": "Acre",
           "waterSource": "Canal System",
           "infoAboutCrop": "Wheat"
         }
       ],
       "id": 2
+    },
+    {
+      "name": "AgriGrowth",
+      "email": "test@gmail.com",
+      "password": "123",
+      "cnfpassword": "123",
+      "phoneNo": 9462860526,
+      "landInfo": [
+        {
+          "address": "Bikaner",
+          "landmark": "MDV Nagar",
+          "pincode": 334001,
+          "state": "Delhi",
+          "district": "North Delhi",
+          "sizeofland": 2000,
+          "landSizeUnit": "Bigha",
+          "waterSource": "Canal System",
+          "infoAboutCrop": "Strawberry"
+        },
+        {
+          "address": "MDV Nagar",
+          "landmark": "Karni Nagar",
+          "pincode": 302015,
+          "state": "Rajasthan",
+          "district": "Jaipur I",
+          "sizeofland": 200,
+          "landSizeUnit": "Bigha",
+          "waterSource": "Rain water harvesting",
+          "infoAboutCrop": "Jute"
+        },
+        {
+          "address": "MDV Nagar12",
+          "landmark": "Shiv Mandir",
+          "pincode": 334001,
+          "state": "Rajasthan",
+          "district": "Bikaner",
+          "sizeofland": 100,
+          "landSizeUnit": "Acre",
+          "waterSource": "Rain water harvesting",
+          "infoAboutCrop": "Wheat"
+        }
+      ],
+      "id": 3
     }
   ]
 }

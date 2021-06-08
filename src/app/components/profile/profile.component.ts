@@ -9,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileComponent implements OnInit {
   collapsed =true;
   userData: any;
+  
   constructor(private gs:GlobalService) { }
 
   ngOnInit(): void {
     this.userData = this.gs.getUserData();
+
   }
 
 }

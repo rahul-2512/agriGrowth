@@ -1,35 +1,106 @@
-<div class="container-fluid">
-    <div class="d-flex justify-content-center mt-5 pt-4">
-        <div class="col-lg-4" *ngIf="myLand ==1">
-            <div class="pricing-box mt-4">
-                <h4 class="form-title mb-4 text-center font-weight-bold">For Own Land</h4>
-                <form class="registration-form" id="self-form" >
-                    <label class="text-muted">First Name</label>
-                    <input type="text" id="address" class="form-control mb-4 registration-input-box">
-                    <label class="text-muted">Last Name</label>
-                    <input type="text" id="district" class="form-control mb-4 registration-input-box">
-                    <label class="text-muted">Email</label>
-                    <input type="email" id="City" class="form-control mb-4 registration-input-box">
-                    <button class="btn btn-primary" (click)="submitRequest()">Submit</button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-4" *ngIf="myLand==2">
-            <div class="pricing-box mt-4">
-                <h4 class="form-title mb-4 text-center font-weight-bold">For Someone else Land</h4>
-                <form class="registration-form" id="someone-else-form">
-                    <label class="text-muted">Name</label>
-                    <input type="text" id="exampleInputName1" class="form-control mb-4 registration-input-box">
-                    <label class="text-muted">Address</label>
-                    <input type="text" id="exampleInputName2" class="form-control mb-4 registration-input-box">
-                    <label class="text-muted">Phone No.</label>
-                    <input type="number" id="exampleInputEmail1" class="form-control mb-4 registration-input-box">
-                    <label class="text-muted">Land Size</label>
-                    <input type="number" id="exampleInputEmail11" class="form-control mb-4 registration-input-box">
-                    <button class="btn btn-primary" (click)="submitRequest()">Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
+<div class="container-fluid bg-features">
+  <div class="d-flex justify-content-center mt-5 pt-4">
+    <div class="col-lg-4" *ngIf="myLand == 1">
+      <div class="pricing-box mt-4">
+        <h3 class="text-center">
+          <i class="fa fa-arrow-left" (click)="backToDashboard()"></i>&nbsp;
+          Request Soil Testing
+        </h3>
+        <h4 class="form-title text-center font-weight-bold">For Own Land</h4>
+        <form class="registration-form" #self_Form="ngForm" novalidate>
+          <div class="form-group">
+            <label class="text-muted">Addres</label>
+            <select name="Addres" class="form-control" required>
+              <option value="Karni Nagar">Karni Nagar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="text-muted">LandMark</label>
+            <select name="LandMark" class="form-control" required>
+              <option value="Industry Area">Industry Area</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="text-muted">district</label>
+            <select name="district" class="form-control" required>
+              <option value="Bikaner">Bikaner</option>
+            </select>
+          </div>
 
+          <button class="btn btn-primary" (click)="submitRequest()">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-4" *ngIf="myLand == 2">
+      <h3 class="text-center">
+        <i class="fa fa-arrow-left" (click)="backToDashboard()"></i>&nbsp;
+        Request Soil Testing
+      </h3>
+      <div class="pricing-box mt-4">
+        <h4 class="form-title text-center font-weight-bold">
+          For Someone else Land
+        </h4>
+        <form class="registration-form" #ForSomeoneElse="ngForm" novalidate>
+          <div class="form-group">
+            <label class="text-muted">Name</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control registration-input-box"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="text-muted">Address</label>
+            <input
+              type="text"
+              name="address"
+              class="form-control registration-input-box"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="text-muted">Phone No.</label>
+            <input
+              type="number"
+              name="phoneNo"
+              class="form-control registration-input-box"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="sizeofLand">Size of Land</label>
+            <div class="input-group">
+              <input
+                type="number"
+                required
+                placeholder="Size of Land"
+                class="form-control registration-input-box"
+                required
+                name="sizeofLand"
+              />
+              <select
+                name="sizeofLandUnit"
+                required
+                class="form-control registration-input-box col-3"
+              >
+                <option value="Acre">Acre</option>
+                <option value="Bigha">Bigha</option>
+                <option value="Kila">Kila</option>
+                <option value="Marba">Marba</option>
+                <option value="meter2">Meter2</option>
+                <option value="yard">Yard</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" (click)="submitRequest()">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

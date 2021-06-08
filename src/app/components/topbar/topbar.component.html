@@ -1,20 +1,27 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
   <div class="container-fluid">
     <!-- LOGO -->
-    
-    <span class="navbar-brand" routerLink="/dashboard">  <img src="assets/images/logo.png" alt="" height="23" /> &nbsp;AgriGrowth</span>
+
+    <span class="navbar-brand" routerLink="/dashboard">
+      <img src="assets/images/logo.png" alt="" height="23" />
+      &nbsp;AgriGrowth</span
+    >
     <button
-    class="navbar-toggler"
-    type="button"
-    aria-controls="navbarContent"
-    [attr.aria-expanded]="!collapsed"
-    aria-label="Toggle navigation"
-    (click)="collapsed = !collapsed"
-  >
-  <span class="navbar-toggler-icon"></span>
-  </button>
-   
-    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarSupportedContent">
+      class="navbar-toggler"
+      type="button"
+      aria-controls="navbarContent"
+      [attr.aria-expanded]="!collapsed"
+      aria-label="Toggle navigation"
+      (click)="collapsed = !collapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      class="navbar-collapse"
+      [class.collapse]="collapsed"
+      id="navbarSupportedContent"
+    >
       <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
         <li class="nav-item">
           <a routerLink="/" class="nav-link smoothlink">Home</a>
@@ -58,16 +65,10 @@
       </ul>
 
       <ul class="navbar-nav navbar-center">
-        <li
-          class="nav-item d-inline-block d-lg-none"
-          *ngIf="!ss.user"
-        >
+        <li class="nav-item d-inline-block d-lg-none" *ngIf="!ss.user">
           <a routerLink="/signup" class="nav-link">Sign Up</a>
         </li>
-        <li
-          class="nav-item d-inline-block d-lg-none"
-          *ngIf="ss.user"
-        >
+        <li class="nav-item d-inline-block d-lg-none" *ngIf="ss.user">
           <a routerLink="/dashboard" class="nav-link">Dashboard</a>
         </li>
       </ul>
@@ -87,6 +88,5 @@
         >
       </div>
     </div>
-   
   </div>
 </nav>

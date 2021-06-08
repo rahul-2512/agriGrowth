@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  
+  forAdmin:any;
   soilTestingEarlier = 'no';
   showTesting = 'no';
   userData: any;
@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userData = this.gs.getUserData();
+    this.forAdmin = this.userData.isAdmin;
     // console.log(this.userData);    
   }
 

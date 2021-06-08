@@ -1,33 +1,61 @@
 <dashboard-header [userData]="userData"></dashboard-header>
-<div class="col-lg-8">
-  <div class="pricing-box mt-4">
-    <img
-      class="img-fluid pi"
-      src="https://robohash.org/{{ userData.name }}"
-      alt="{{ userData.name }}"
-    />
-    <h4 class="f-20">{{ userData.name }}</h4>
+<div class="d-flex justify-content-between">
+  <div class="col-lg-4 h-100">
+    <div class="pricing-box mt-4">
+      <div class="count-box bg-soft-primary text-center w-auto">
+        <img
+          class="img-fluid pi text-center"
+          src="https://robohash.org/{{ userData.name }}"
+          alt="{{ userData.name }}"
+        />
+        <h4 class="f-20">{{ userData.name }}</h4>
+      </div>
 
-    <div class="mt-4 pt-2">
-      <table class="table table-sm table-borderless table-responsive">
-        <h3 class="mb-2 f-18">Contact Info</h3>
-        <tbody>
-          <tr>
-            <th>Email</th>
-            <td>:</td>
-            <td>{{ userData.email }}</td>
-          </tr>
-          <tr>
-            <th>Phone</th>
-            <td>:</td>
-            <td>(+91)-{{ userData.phoneNo }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="mt-4 pt-2">
+        <table class="table table-sm table-borderless table-responsive">
+          <h3 class="mb-2 f-18">Contact Info</h3>
+          <tbody>
+            <tr>
+              <th>Email</th>
+              <td>:</td>
+              <td>{{ userData.email }}</td>
+            </tr>
+            <tr>
+              <th>Phone</th>
+              <td>:</td>
+              <td>(+91)-{{ userData.phoneNo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-
-    <p class="mt-4 pt-2 text-muted">
-      Semper urna veal tempus pharetra elit habisse platea dictumst.
-    </p>
+  </div>
+  <div class="col-lg-8">
+    <h4 class="text-center mt-4">My Land's</h4>
+    <div class="d-flex justify-content-around">
+      <div
+        class="col-lg-4"
+        *ngFor="let land of userData.landInfo; let i = index"
+      >
+        <div class="card  h-22">
+          <div class="card-header bg-soft-info py-3">
+            <h5 class="my-1 card-title">{{ land.landmark }}</h5>
+          </div>
+          <div class="card-body">
+            <address>
+             Address: <strong>{{ land.address }},
+             {{ land.district }} -{{ land.pincode }} , {{ land.state }}</strong>
+            </address>
+            <ul>
+              <li>
+                Size Of Land: {{ land.sizeofland }} {{ land.landSizeUnit }}
+              </li>
+              <li>Water Source: {{ land.waterSource }}</li>
+              <li>Produce Crops: {{ land.infoAboutCrop }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

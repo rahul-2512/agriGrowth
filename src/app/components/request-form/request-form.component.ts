@@ -14,10 +14,17 @@ export class RequestFormComponent implements OnInit {
 
   ngOnInit(){
     this.myLand = this.gs.getRequestType();
+    if(!this.myLand){
+      this.backToDashboard();
+    }
+  }
+
+  backToDashboard(){
+    this.router.navigate(['/dashboard']);
   }
 
   submitRequest(){
     this.toastr.success('Request Submmited Successfully');
-    this.router.navigate(['/dashboard']);
+    this.backToDashboard();
   }
 }

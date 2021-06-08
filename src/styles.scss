@@ -28,3 +28,13 @@ section{
   @extend .justify-content-between;
 }
 
+.media{
+  display: inline-block;
+}
+
+.count-box{
+  padding: 10px;
+    border-radius: 10px;
+    width: 120px;
+    margin: 0 auto
+}

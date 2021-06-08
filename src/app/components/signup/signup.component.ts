@@ -10,13 +10,14 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  @ViewChild('stepForm2') stepForm2: NgForm | any;
+  
   first_step = true;
   second_step = false;
   addMoreLand: any;
   landInfoArray: any = [];
   state_List: any;
   district_List: any;
+  stateLoaded = true;
   states: any;
   districts:any;
   step1 = {
@@ -34,11 +35,10 @@ export class SignupComponent implements OnInit {
     state: '',
     district: '',
     sizeofland: '',
-    sizeofLandUnit: 'Acre',
+    landSizeUnit: 'Acre',
     waterSource: '',
     infoAboutCrop: '',
   };
-  disableSignUp: boolean = false;
   constructor(
     private toastr: ToastrService,
     private modal: ModalService,
@@ -48,7 +48,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  moreLand() {
+  moreLand(stepForm2:NgForm) {
     // console.log(this.addMoreLand);
     if (this.addMoreLand) {
       this.modal
@@ -68,7 +68,7 @@ export class SignupComponent implements OnInit {
 
           console.log('landInfoArray', this.landInfoArray);
           this.addMoreLand = false;
-          this.stepForm2.reset();
+          stepForm2.reset();
         })
         .catch(() => {
           this.addMoreLand = false;
@@ -77,11 +77,18 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  firstStep() {
+  firstStep(stepForm1:NgForm) {
+    if(stepForm1.invalid){
+      this.toastr.error('Please Fill All required Fields');
+      return
+    }
     if (this.step1.password === this.step1.cnfpassword) {
       this.first_step = false;
       this.second_step = true;
-      this.stateList();
+      if(this.stateLoaded){
+        this.stateList();
+        this.stateLoaded = false;
+      }
     } else {
       this.toastr.error('Password Mismached');
     }

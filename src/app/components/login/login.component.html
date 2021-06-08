@@ -1,102 +1,48 @@
-<ul
-  ngbNav
-  #nav="ngbNav"
-  [(activeId)]="active"
-  class="border-0 nav nav-pills nav-tabs"
->
-  <li [ngbNavItem]="1">
-    <a ngbNavLink>Admin Login</a>
-    <ng-template ngbNavContent>
-      <div class="pricing-box mt-1">
-        <h5 class="form-title my-1 text-center font-weight-bold">Admin Login</h5>
-        <form class="registration-form">
-          <div class="form-group">
-            <label class="text-muted">Email</label>
-            <input
-              type="email"
-              name="email"
-              required
-              [(ngModel)]="adminLoginForm.email"
-              class="form-control mb-4 registration-input-box"
-            />
-          </div>
-          <div class="form-group">
-            <label class="text-muted">Password</label>
-            <input
-              type="password"
-              autocomplete
-              name="password"
-              required
-              [(ngModel)]="adminLoginForm.password"
-              class="form-control mb-4 registration-input-box"
-            />
-          </div>
-
-          <div class="mt-4 pt-3">
-            <button type="submit" class="btn btn-primary btn-rounded">
-              Login
-            </button>
-          </div>
-        </form>
-      </div>
-    </ng-template>
-  </li>
-  <li [ngbNavItem]="2">
-    <a ngbNavLink>User Login</a>
-    <ng-template ngbNavContent>
-      <div class="pricing-box mt-1">
-        <h5 class="form-title my-1 text-center font-weight-bold">User Login</h5>
-
-        <form
-          class="registration-form"
-          #loginForm="ngForm"
-          (ngSubmit)="loginIn()"
-        >
-          <div class="form-group">
-            <label class="text-muted">Email</label>
-            <input
-              type="email"
-              name="email"
-              #email="ngModel"
-              [(ngModel)]="userLoginForm.email"
-              required="true"
-              class="form-control mb-4 registration-input-box"
-            />
-            <div
-              [hidden]="email.valid || email.pristine"
-              class="alert alert-danger"
-            >
-              Email is required
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="text-muted">Password</label>
-            <input
-              type="password"
-              autocomplete
-              name="password"
-              #password="ngModel"
-              [(ngModel)]="userLoginForm.password"
-              required="true"
-              class="form-control mb-4 registration-input-box"
-            />
-          </div>
-
-          <div class="mt-4 pt-3">
-            <button
-              class="btn btn-primary btn-rounded"
-              [disabled]="!loginForm.form.valid"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-      </div>
-    </ng-template>
-  </li>
-</ul>
 <div class="home-registration-form bg-white">
-  <div [ngbNavOutlet]="nav" class="mb-0"></div>
+  <div class="pricing-box mt-1">
+    <h5 class="form-title my-1 text-center font-weight-bold">Login to Dashboard!</h5>
+
+    <form class="registration-form" #loginForm="ngForm" (ngSubmit)="loginIn()">
+      <div class="form-group">
+        <label class="text-muted">Email</label>
+        <input
+          type="email"
+          name="email"
+          #email="ngModel"
+          [(ngModel)]="userLoginForm.email"
+          required="true"
+          class="form-control mb-4 registration-input-box"
+        />
+        <div
+          [hidden]="email.valid || email.pristine"
+          class="alert alert-danger"
+        >
+          Email is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="text-muted">Password</label>
+        <input
+          type="password"
+          autocomplete
+          name="password"
+          #password="ngModel"
+          [(ngModel)]="userLoginForm.password"
+          required="true"
+          class="form-control mb-4 registration-input-box"
+        />
+      </div>
+
+      <div class="mt-4 pt-3">
+        <button
+          class="btn btn-primary btn-rounded"
+          [disabled]="!loginForm.form.valid"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+  </div>
   <p class="text-muted text-center">
     Don't Have an Account
     <span>

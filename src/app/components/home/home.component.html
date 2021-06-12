@@ -1,34 +1,30 @@
 <app-topbar></app-topbar>
 <section class="bg-home bg-light" id="home">
-  <div class="home-center">
-    <div class="home-desc-center">
-      <div class="container mt-4">
-        <div class="row align-items-center">
-          <div [class]="{ 'col-lg-6': !ssuser, 'col-sm-12': ssuser }">
-            <ngb-carousel
-              *ngIf="images"
-              [showNavigationArrows]="true"
-              [showNavigationIndicators]="false"
-            >
-              <ng-template ngbSlide *ngFor="let image of images">
-                <div class="img-wrapper">
-                  <img
-                    class="img-fluid"
-                    [src]="image"
-                    alt="AgriGrowth_slider"
-                  />
-                </div>
-              </ng-template>
-            </ngb-carousel>
-          </div>
-          <div class="col-lg-5 offset-lg-1" *ngIf="!ssuser">
-            <app-login *ngIf="isLoginEnable"></app-login>
-          </div>
-        </div>
-
-        <!-- END HOME -->
+  <div class="container mt-4">
+    <div class="row align-items-center">
+      <div [class]="{ 'col-lg-6': !ssuser, 'col-sm-12': ssuser }">
+        <ngb-carousel
+          *ngIf="images"
+          [showNavigationArrows]="true"
+          [showNavigationIndicators]="false"
+        >
+          <ng-template ngbSlide *ngFor="let image of images">
+            <div class="d-flex justify-content-center img-wrapper">
+              <img
+              class="img-fluid"
+                [src]="image"
+                alt="AgriGrowth_slider"
+              />
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+      <div class="col-lg-5 offset-lg-1" *ngIf="!ssuser">
+        <app-login *ngIf="isLoginEnable"></app-login>
       </div>
     </div>
+
+    <!-- END HOME -->
   </div>
 </section>
 

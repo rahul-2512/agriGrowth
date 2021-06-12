@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   images = [1,2,3,4,5].map((n) => `assets/images/slider/slider-${n}.png`);
+  // images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   isLoginEnable = true;
   isSignUp = false;
   ssuser: any;

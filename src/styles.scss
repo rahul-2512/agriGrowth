@@ -1,40 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr";
 @import "~bootstrap/scss/bootstrap";
 @import "scss/style.scss";
 
-
-.btn-group-xs>.btn,
+.btn-group-xs > .btn,
 .btn-xs {
-  padding: .125rem .4rem;
+  padding: 0.125rem 0.4rem;
   font-size: 85%;
   line-height: 1.5;
-  border-radius: .2rem
-}
-// .carousel-inner{
-//     clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
-//     flex-wrap: wrap;
-//     flex-flow: column;
-// }
-
-section{
-    padding: 80px 0!important;
+  border-radius: 0.2rem;
 }
 
-.carousel-inner{
-  @extend .d-lg-flex;
-  @extend .justify-content-between;
+section {
+  padding: 80px 0 !important;
 }
 
-.media{
+.media {
   display: inline-block;
 }
 
-.count-box{
+.count-box {
   padding: 10px;
-    border-radius: 10px;
-    width: 120px;
-    margin: 0 auto
+  border-radius: 10px;
+  width: 120px;
+  margin: 0 auto;
 }

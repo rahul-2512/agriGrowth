@@ -125,12 +125,6 @@ export class SignupComponent implements OnInit {
     this.step2.district = this.districts.district_name;
   }
 
-  // DoLogin(){
-  //   const salt = bcrypt.genSaltSync(10);
-  //   let pass = bcrypt.hashSync('Pass@123', 10);
-  //   console.log(pass);    
-  // }
-
   districtList() {
     this.step2.state = this.states.state_name;
 

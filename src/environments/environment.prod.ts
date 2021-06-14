@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  api: 'https://my-json-server.typicode.com/rahul-2512/agriGrowth/',
+  api: 'https://agrigrowth.herokuapp.com/api',
   cowin_api: 'https://cdn-api.co-vin.in/api/v2'
 };

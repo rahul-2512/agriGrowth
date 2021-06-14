@@ -2,7 +2,12 @@
   <div class="container-fluid">
     <!-- LOGO -->
 
-    <span class="navbar-brand" routerLink="/dashboard">
+    <span
+      class="navbar-brand"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      routerLink="/home"
+    >
       <img src="assets/images/logo.png" alt="" height="23" />
       &nbsp;AgriGrowth</span
     >
@@ -24,7 +29,13 @@
     >
       <ul class="navbar-nav ml-auto navbar-center" id="mySidenav">
         <li class="nav-item">
-          <a routerLink="/" class="nav-link smoothlink">Home</a>
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/"
+            class="nav-link smoothlink"
+            >Home</a
+          >
         </li>
         <li class="nav-item">
           <a
@@ -65,25 +76,41 @@
       </ul>
 
       <ul class="navbar-nav navbar-center">
-        <li class="nav-item d-inline-block d-lg-none" *ngIf="!ss.user">
-          <a routerLink="/signup" class="nav-link">Sign Up</a>
+        <li class="nav-item d-inline-block d-lg-none" *ngIf="!ssuser">
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/signup"
+            class="nav-link"
+            >Sign Up</a
+          >
         </li>
-        <li class="nav-item d-inline-block d-lg-none" *ngIf="ss.user">
-          <a routerLink="/dashboard" class="nav-link">Dashboard</a>
+        <li class="nav-item d-inline-block d-lg-none" *ngIf="ssuser">
+          <a
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            routerLink="/dashboard"
+            class="nav-link"
+            >Dashboard</a
+          >
         </li>
       </ul>
 
       <div class="navbar-button d-none d-lg-inline-block">
         <a
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
           routerLink="/signup"
           class="btn btn-sm btn-soft-primary btn-round"
-          *ngIf="!ss.user"
+          *ngIf="!ssuser"
           >Sign Up</a
         >
         <a
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
           routerLink="/dashboard"
           class="btn btn-sm btn-soft-primary btn-round"
-          *ngIf="ss.user"
+          *ngIf="ssuser"
           >Dashboard</a
         >
       </div>

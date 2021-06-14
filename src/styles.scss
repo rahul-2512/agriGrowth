@@ -27,3 +27,17 @@ section {
   width: 120px;
   margin: 0 auto;
 }
+.modal{
+  &-header{
+    padding: 0.25rem 1rem!important;
+  }
+
+  &-footer{
+    border-top: none!important;
+    padding: 0 0.25rem;
+  }
+}
+
+.bg-request{
+  background-image: url('assets/images/slider/slider-2.png');
+}

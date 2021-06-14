@@ -1,7 +1,11 @@
+import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
+import { DataService } from 'src/app/services/http.service';
 import { GlobalService } from './../../services/global-service.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,21 +13,25 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-  forAdmin:any;
+  forAdmin: any;
   soilTestingEarlier = 'no';
   showTesting = 'no';
   userData: any;
+  adminMyTestingRequests: any;
   soilData = {
     soiltype: '',
     temp: '',
     humidity: '',
     ph: '',
     rainfall: '',
-  }
+  };
+  myTestingRequests: any;
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private gs: GlobalService
+    private gs: GlobalService,
+    private ds: DataService,
+    private toastr:ToastrService
   ) {}
   ngOnDestroy(): void {
     this.modalService.dismissAll();
@@ -31,8 +39,27 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userData = this.gs.getUserData();
-    this.forAdmin = this.userData.isAdmin;
-    // console.log(this.userData);    
+    if (this.userData.role === 'admin') {
+      this.forAdmin = true;
+      this.getAdminTestingReq();
+    } else {
+      this.forAdmin = false;
+      this.getTestingReq();
+    }
+  }
+
+  getAdminTestingReq() {
+    this.ds
+      .get(`${environment.api}/soiltest/allTests`)
+      .subscribe((res: any) => {
+        this.adminMyTestingRequests = res;
+      });
+  }
+
+  getTestingReq() {
+    this.ds.get(`${environment.api}/soiltest/myTests`).subscribe((res: any) => {
+      this.myTestingRequests = res;
+    });
   }
 
   requestType = [
@@ -40,7 +67,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     { id: 2, name: 'For Someone else Land' },
   ];
 
-  changeSoilTesting(d: string) {    
+  changeSoilTesting(d: string) {
     this.showTesting = d;
   }
 
@@ -48,12 +75,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.modalService.open(content, { size: 'lg' });
   }
 
-  submit(){
-    console.log(this.soilData);
-    
+  getPrediction(){
+    this.ds.post(`${environment.api}/soiltest/cropInfo`, JSON.stringify(this.soilData)).subscribe((res:any)=> {
+      console.log(res);
+      
+    })
+  }
+
+  submit(form:NgForm) {
+    if(form.invalid){
+      this.toastr.warning('Invalid Form Input')
+      return 
+    }
+    this.getPrediction();
   }
   requestForLand(id: any) {
-    console.log(id);
     this.gs.setRequestType(id);
     this.router.navigate(['/requestForm']);
   }

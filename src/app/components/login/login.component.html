@@ -1,25 +1,23 @@
 <div class="home-registration-form bg-white">
   <div class="pricing-box mt-1">
-    <h5 class="form-title my-1 text-center font-weight-bold">Login to Dashboard!</h5>
+    <h5 class="form-title my-1 text-center font-weight-bold">
+      Login to Dashboard!
+    </h5>
 
-    <form class="registration-form" #loginForm="ngForm" (ngSubmit)="loginIn()">
+    <form class="registration-form" #loginForm="ngForm" ngNativeValidate>
       <div class="form-group">
         <label class="text-muted">Email</label>
         <input
           type="email"
           name="email"
-          #email="ngModel"
+          #emailAddress="ngModel"
+          email
           [(ngModel)]="userLoginForm.email"
           required="true"
           class="form-control mb-4 registration-input-box"
         />
-        <div
-          [hidden]="email.valid || email.pristine"
-          class="alert alert-danger"
-        >
-          Email is required
-        </div>
       </div>
+
       <div class="form-group">
         <label class="text-muted">Password</label>
         <input
@@ -35,6 +33,8 @@
 
       <div class="mt-4 pt-3">
         <button
+        type="button"
+        (click)="loginIn(loginForm)"
           class="btn btn-primary btn-rounded"
           [disabled]="!loginForm.form.valid"
         >

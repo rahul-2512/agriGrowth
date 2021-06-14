@@ -3,7 +3,8 @@ import { ModalService } from './../../services/modal-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { HttpService } from 'src/app/services/http.service';
+import { DataService } from 'src/app/services/http.service';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -43,7 +44,7 @@ export class SignupComponent implements OnInit {
     private toastr: ToastrService,
     private modal: ModalService,
     private gs: GlobalService,
-    private ht: HttpService
+    private ds: DataService
   ) {}
 
   ngOnInit(): void {}
@@ -52,11 +53,11 @@ export class SignupComponent implements OnInit {
     // console.log(this.addMoreLand);
     if (this.addMoreLand) {
       this.modal
-        .open('confirm', 'Do you Want to Add More Land?')
+        .open('confirm', 'Do you Want to Add More Land Info?')
         .then(() => {
           this.landInfoArray.forEach((l: any) => {
             if (l.landmark === this.step2.landmark) {
-              this.toastr.warning('Same Land Mark Exist');
+              this.toastr.warning('Same Entry Exist for entered Land Mark');
               return;
             }
           });
@@ -90,7 +91,7 @@ export class SignupComponent implements OnInit {
         this.stateLoaded = false;
       }
     } else {
-      this.toastr.error('Password Mismached');
+      this.toastr.error('Password Mismatched');
     }
   }
 
@@ -106,12 +107,15 @@ export class SignupComponent implements OnInit {
     let finalObj: any = Object.assign({}, this.step1);
     finalObj['landInfo'] = this.landInfoArray;
     console.log(finalObj);
-    this.ht.signupUser(JSON.stringify(finalObj));
-    this.gs.loginNow();
+    this.ds.basicPost(`${environment.api}/auth/register`, JSON.stringify(finalObj))
+    .subscribe((res: any) => {
+      this.toastr.success('User Registered Successfully, Logging Now!');
+      this.gs.isAuthenticated(res.data);
+    });
   }
 
   stateList() {
-    this.ht.getStateList().subscribe(
+    this.ds.getStateList().subscribe(
       (stateList: any) => {
         this.state_List = stateList.states;
       },
@@ -129,7 +133,7 @@ export class SignupComponent implements OnInit {
     this.step2.state = this.states.state_name;
 
     if (this.states.state_id) {
-      this.ht.getDistrictList(this.states.state_id).subscribe(
+      this.ds.getDistrictList(this.states.state_id).subscribe(
         (districtList: any) => {
           this.district_List = districtList.districts;
         },

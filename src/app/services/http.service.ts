@@ -1,27 +1,20 @@
+import { GlobalService } from 'src/app/services/global-service.service';
 import { environment } from './../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HttpService {
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
-
-  getUser() {
-    return this.http.get(`${environment.api}/users`);
-  }
-
-  signupUser(payload: any) {
-    return this.http
-      .post(`${environment.api}/users`, payload, {
-        headers: new HttpHeaders().set('Content-Type', 'application/json'),
-      })
-      .subscribe((res: any) => {
-        this.toastr.success('Signup User Successfully');
-      });
+export class DataService {
+  authToken: any;
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private gs: GlobalService
+  ) {
+    this.authToken = this.gs.getToken();
   }
 
   getStateList() {
@@ -32,5 +25,29 @@ export class HttpService {
     return this.http.get(
       `${environment.cowin_api}/admin/location/districts/${stateId}`
     );
+  }
+
+  basicGet(url: string) {
+    return this.http.get(url);
+  }
+
+  basicPost(url: string, payload: string) {
+    return this.http.post(url, payload, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
+  }
+
+  get(url: string) {
+    return this.http.get(url, {
+      headers: new HttpHeaders().set('x-auth-token', this.authToken),
+    });
+  }
+
+  post(url: string, payload: string) {
+    return this.http.post(url, payload, {
+      headers: new HttpHeaders()
+        .set('x-auth-token', this.authToken)
+        .set('Content-Type', 'application/json'),
+    });
   }
 }

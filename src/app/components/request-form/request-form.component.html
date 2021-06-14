@@ -1,49 +1,71 @@
-<div class="container-fluid bg-features">
-  <div class="d-flex justify-content-center mt-5 pt-4">
-    <div class="card col-lg-12" *ngIf="myLand == 1">
-      <div class="card-header">
-        <h3 class="card-title">
+<div class="container-fluid bg-request">
+  <div class="d-flex justify-content-center pt-4">
+    <img src="assets/images/logo-large.png" class="img-fluid" alt="" />
+  </div>
+  <div class="d-flex justify-content-center mt-5">
+    <!-- for ownLand -->
+    <div class="card col-lg-12 p-0" *ngIf="myLand == 1">
+      <div class="card-header pb-0">
+        <h5 class="card-title">
           <i class="fa fa-arrow-left" (click)="backToDashboard()"></i>&nbsp;
           Request Soil Testing
-        </h3>
+        </h5>
       </div>
-      <div class="card-body">
+      <div class="card-body table-responsive">
         <form class="registration-form" #self_Form="ngForm" novalidate>
-          <div class="form-group">
-            <label class="text-muted">Addres</label>
-            <select name="Addres" class="form-control" required>
-              <option value="Karni Nagar">Karni Nagar</option>
-            </select>
+          <label class="col-form-label">Choose LandMark</label>
+          <div
+            class="input-group mb-3 col-lg-6 offset-lg-3"
+            *ngFor="let land of landInfoArray"
+          >
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <input
+                  type="checkbox"
+                  (change)="chooseLandMark($event,land)"
+                  name="landmark"
+                  [(ngModel)]="land.isChecked"
+                  aria-label="Checkbox for following text input"
+                />
+              </div>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              [value]="land.landmark"
+              aria-label="Text input with checkbox"
+              readonly
+            />
           </div>
-          <div class="form-group">
-            <label class="text-muted">LandMark</label>
-            <select name="LandMark" class="form-control" required>
-              <option value="Industry Area">Industry Area</option>
-            </select>
+          <div class="col-sm-12">
+            <button
+              class="btn btn-outline-dark float-left"
+              (click)="backToDashboard()"
+            >
+              Back
+            </button>
+            <button
+              class="btn btn-primary float-right"
+              (click)="submitForOwn(self_Form)"
+            >
+              Submit
+            </button>
           </div>
-          <div class="form-group">
-            <label class="text-muted">district</label>
-            <select name="district" class="form-control" required>
-              <option value="Bikaner">Bikaner</option>
-            </select>
-          </div>
-
-          <button class="btn btn-primary" (click)="submitRequest(self_Form)">
-            Submit
-          </button>
         </form>
       </div>
     </div>
-    <div class="card col-lg-12" *ngIf="myLand == 2">
+
+    <!-- For Someone else -->
+    <div class="card col-lg-12 p-0" *ngIf="myLand == 2">
       <div class="card-header">
-        <h3 class="card-title">
+        <h5 class="card-title">
           <i class="fa fa-arrow-left" (click)="backToDashboard()"></i>&nbsp;
           Request Soil Testing
-        </h3>
+        </h5>
       </div>
 
-      <form class="registration-form" #ForSomeoneElse="ngForm" novalidate>
-        <div class="card-body">
+      <div class="card-body table-responsive">
+        <form class="registration-form" #ForSomeoneElse="ngForm" novalidate>
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
@@ -72,33 +94,6 @@
                   placeholder="Enter Email"
                 />
               </div>
-
-              <div class="form-group">
-                <label for="userpassword">Password</label>
-                <input
-                  type="password"
-                  [(ngModel)]="requestFormObj.password"
-                  class="form-control registration-input-box"
-                  autocomplete
-                  name="userpassword"
-                  #userpassword="ngModel"
-                  required
-                  placeholder="Enter password"
-                />
-              </div>
-              <div class="form-group">
-                <label for="usercnfpassword">Confirm Password</label>
-                <input
-                  type="text"
-                  [(ngModel)]="requestFormObj.cnfpassword"
-                  class="form-control registration-input-box"
-                  autocomplete
-                  name="usercnfpassword"
-                  #usercnfpassword="ngModel"
-                  required
-                  placeholder="Confirm password"
-                />
-              </div>
               <div class="form-group">
                 <label for="userphone">Phone Number</label>
                 <input
@@ -112,8 +107,7 @@
                   pattern="^(\+\d{1,3}[- ]?)?\d{10}$"
                 />
               </div>
-            </div>
-            <div class="col-lg-6">
+
               <div class="form-group">
                 <label for="address">Address</label>
                 <input
@@ -137,7 +131,6 @@
                   placeholder="Enter landmark"
                 />
               </div>
-
               <div class="form-group">
                 <label for="pincode">Pincode</label>
                 <input
@@ -151,6 +144,8 @@
                   placeholder="Pincode"
                 />
               </div>
+            </div>
+            <div class="col-lg-6">
               <div class="form-group">
                 <label for="state">State</label>
                 <select
@@ -239,16 +234,22 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <button
-            class="btn btn-primary"
-            (click)="submitRequest(ForSomeoneElse)"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
+          <div class="col-sm-12">
+            <button
+              class="btn btn-outline-dark float-left"
+              (click)="backToDashboard()"
+            >
+              Back
+            </button>
+            <button
+              class="btn btn-primary float-right"
+              (click)="submitRequest(ForSomeoneElse)"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

@@ -1,7 +1,9 @@
+import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { HttpService } from './../../services/http.service';
-import { GlobalService } from './../../services/global-service.service';
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/http.service';
+import { GlobalService } from 'src/app/services/global-service.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -15,35 +17,20 @@ export class LoginComponent implements OnInit {
   };
   constructor(
     private gs: GlobalService,
-    private ht: HttpService,
+    private ds: DataService,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {}
 
-  loginIn() {
-    this.ht.getUser().subscribe(
-      (users: any) => {
-        for (let index = 0; index < users.length; index++) {
-          if (
-            users[index] &&
-            users[index].email === this.userLoginForm.email &&
-            users[index].password === this.userLoginForm.password
-          ) {
-            this.gs.isAuthenticated(users[index]);
-            return;
-          }
-          if (
-            !users[index] &&
-            users[index].email !== this.userLoginForm.email &&
-            users[index].password !== this.userLoginForm.password
-          ) {
-            this.toastr.error('Email or Password Might be incorrect');
-          }
-        }
-      },
-      (error) => {
-        this.toastr.error('Something Went Wrong, Try Again Later');
+  loginIn(form: NgForm) {
+    this.ds.basicPost(`${environment.api}/auth/login`, JSON.stringify(this.userLoginForm)).subscribe(
+      (userdata: any) => {
+        this.gs.setToken(userdata.accesstoken);
+        this.gs.isAuthenticated(userdata.profile);
+      }, 
+      (err: any) => {
+        this.toastr.error(err.error.message);
       }
     );
   }

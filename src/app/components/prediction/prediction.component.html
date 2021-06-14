@@ -1,0 +1,76 @@
+<dashboard-header></dashboard-header>
+<div class="card col-sm-8 my-2 offset-lg-2">
+  <div class="card-header">
+    <h3 class="card-title">Get Prediction</h3>
+  </div>
+  <div class="card-body table-responsive">
+    <form #getSoilData="ngForm" (ngSubmit)="submit()" ngNativeValidate >
+      <div class="form-group">
+        <label for="name">Soil Type</label>
+        <input
+          type="text"
+          [(ngModel)]="soilData.soiltype"
+          class="form-control registration-input-box"
+          name="soiltype"
+          #soiltype="ngModel"
+          required
+          placeholder="Soil Type"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Temperature</label>
+        <input
+          type="text"
+          [(ngModel)]="soilData.temp"
+          class="form-control registration-input-box"
+          name="temp"
+          #temp="ngModel"
+          required
+          placeholder="Enter Temperature"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">Humidity</label>
+        <input
+          type="text"
+          [(ngModel)]="soilData.humidity"
+          class="form-control registration-input-box"
+          name="humidity"
+          #humidity="ngModel"
+          required
+          placeholder="Enter Humidity"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">PH Value</label>
+        <input
+          type="text"
+          [(ngModel)]="soilData.ph"
+          class="form-control registration-input-box"
+          name="ph"
+          #ph="ngModel"
+          required
+          placeholder="Enter ph"
+        />
+      </div>
+      <div class="form-group">
+        <label for="name">RainFall</label>
+        <input
+          type="text"
+          [(ngModel)]="soilData.rainfall"
+          class="form-control registration-input-box"
+          name="rainfall"
+          #rainfall="ngModel"
+          required
+          placeholder="Rainfall"
+        />
+      </div>
+      <button
+        type="submit"
+        class="btn btn-primary float-right"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

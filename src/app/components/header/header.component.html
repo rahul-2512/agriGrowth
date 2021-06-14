@@ -17,20 +17,63 @@
   >
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/">Home</a>
+        <a
+          href="javascript:void(0)"
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/"
+        >
+          <i class="fa fa-home"></i>
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/profile">Profile</a>
+        <a
+          href="javascript:void(0)"
+          class="nav-link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          routerLink="/dashboard"
+          >Dashboard</a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          href="javascript:void(0)"
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/profile"
+          >Profile</a
+        >
       </li>
       <li class="nav-item" *ngIf="userData?.isAdmin">
-        <a class="nav-link" routerLink="/upload">Upload</a>
+        <a
+          href="javascript:void(0)"
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/upload"
+          >Upload</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="!userData?.isAdmin">
+        <a
+          href="javascript:void(0)"
+          class="nav-link"
+          routerLinkActive="active"
+          routerLink="/prediction"
+          >Get Predirection</a
+        >
       </li>
     </ul>
   </div>
   <span class="mb-0 mx-2 text-light d-none d-lg-block"
-    >Hi, {{ userData.name }}</span
+    >Hi, <strong>{{ userData.name }}</strong></span
   >
-  <div ngbDropdown class="d-none d-lg-inline-block" [class.collapse]="collapsed">
+  <div
+    ngbDropdown
+    class="d-none d-lg-inline-block"
+    [class.collapse]="collapsed"
+  >
     <img
       class="img-fluid pi"
       src="https://robohash.org/{{ userData.name }}"
@@ -51,5 +94,4 @@
       <a ngbDropdownItem routerLink="/" (click)="logout()">Logout</a>
     </div>
   </div>
-
 </nav>

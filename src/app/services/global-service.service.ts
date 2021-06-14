@@ -7,7 +7,8 @@ import { Injectable } from '@angular/core';
 export class GlobalService {
   rt: any;
   userInfo: any;
-  constructor(private router:Router) {}
+  accessToken: any;
+  constructor(private router: Router) {}
 
   setRequestType(id: any) {
     this.rt = id;
@@ -16,27 +17,29 @@ export class GlobalService {
     return this.rt;
   }
 
-  loginNow(){
-    this.router.navigate(['/home']);
+  setUserData(user: any) {
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
-  isAuthorize(){
-    if(sessionStorage.user){
-      return true;
-    }else{
-      return false;
+  getUserData() {
+    let d:any = localStorage.getItem('user');
+    return JSON.parse(d);
+  }
+
+  setToken(token: string) {
+    this.accessToken = token;
+    localStorage.setItem('token', token);
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  isAuthenticated(user: any) {
+    this.setUserData(user);
+    if (this.getToken()) {
+      this.router.navigate(['/dashboard']);
     }
-  }
-
-  getUserData(){
-    this.userInfo = JSON.parse(sessionStorage.user);
-    this.isAuthorize();
-    return this.userInfo;
-  }
-
-  isAuthenticated(user:any){ 
-   sessionStorage.setItem('user',JSON.stringify(user));
-    this.router.navigate(['/dashboard']);
     return true;
   }
 }

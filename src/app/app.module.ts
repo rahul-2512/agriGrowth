@@ -13,13 +13,14 @@ import { RequestFormComponent } from './components/request-form/request-form.com
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { ProfileComponent } from './components/profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
-import { HeaderComponent } from './components/dashboard/header/header.component';
-import { LoginGuardService } from './services/login-guard.service';
+import { HeaderComponent } from './components/header/header.component';
+import { AuthService } from './services/auth.service';
+import { PredictionComponent } from './components/prediction/prediction.component';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { AuthGuardService } from './services/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { LoginGuardService } from './services/login-guard.service';
     RequestFormComponent,
     ProfileComponent,
     HeaderComponent,
+    PredictionComponent,
   ],
   imports: [
     CommonModule,
@@ -46,11 +48,13 @@ import { LoginGuardService } from './services/login-guard.service';
       preventDuplicates: true,
     }),
     ReactiveFormsModule,
-    FormlyModule.forRoot({ extras: { lazyRender: true } }),
-    FormlyBootstrapModule,
   ],
   entryComponents: [],
-  providers: [LoginGuardService],
+  providers: [
+    AuthService,AuthGuardService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

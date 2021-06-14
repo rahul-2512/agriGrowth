@@ -1,9 +1,10 @@
 import { NgForm } from '@angular/forms';
-import { HttpService } from 'src/app/services/http.service';
+import { DataService } from 'src/app/services/http.service';
 import { Router } from '@angular/router';
 import { GlobalService } from './../../services/global-service.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-request-form',
@@ -17,6 +18,7 @@ export class RequestFormComponent implements OnInit {
   stateLoaded = true;
   states: any;
   districts: any;
+  landmarkInfo: any;
   requestFormObj = {
     name: '',
     email: '',
@@ -33,38 +35,86 @@ export class RequestFormComponent implements OnInit {
     waterSource: '',
     infoAboutCrop: '',
   };
+  userInfo: any;
+  landInfoArray: any;
+  landmarkArray: any;
   constructor(
     private gs: GlobalService,
     private toastr: ToastrService,
     private router: Router,
-    private ht: HttpService
+    private ds: DataService
   ) {}
 
   ngOnInit() {
+    this.landmarkArray = [];
     this.myLand = this.gs.getRequestType();
+    if (this.myLand === 1) {
+      this.userInfo = this.gs.getUserData();
+      this.getLandMarkDetails();
+    }
     if (!this.myLand) {
       this.backToDashboard();
     }
+    this.stateList();
+  }
+
+  getLandMarkDetails() {
+    this.landInfoArray = [];
+    this.userInfo.landInfo.forEach((land: any) => {
+      land['isChecked'] = false;
+      this.landInfoArray.push(land);
+    });
+    console.log(this.landInfoArray);
   }
 
   backToDashboard() {
     this.router.navigate(['/dashboard']);
   }
 
-  submitRequest(form:NgForm) {
-    if(!form.invalid){
-      console.log(this.requestFormObj);
-    
-    this.toastr.success('Request Submmited Successfully');
-    this.backToDashboard();
-    } else {
-      this.toastr.warning('Please Fill All the Fields!')
+  submitForOwn(form: NgForm) {
+    if (!form.invalid) {
+      this.userInfo['landInfo'] = this.landmarkArray;
+      console.log(this.userInfo);      
+      // this.requestForSoilTesting(this.userInfo);
     }
-    
+  }
+
+  chooseLandMark(e: any, land: any) {
+    if (e.target.checked) {
+      this.landmarkArray.push(land);
+    } else {
+      this.landmarkArray = this.landmarkArray.filter((el: any) => {
+        return el !== land;
+      });
+    }
+
+  }
+
+  submitRequest(form: NgForm) {
+    if (!form.invalid) {
+      console.log(this.requestFormObj);
+      this.requestForSoilTesting(this.requestFormObj);
+    } else {
+      this.toastr.warning('Please Fill All the Fields!');
+    }
+  }
+
+  requestForSoilTesting(data:any) {
+    this.ds
+      .post(
+        `${environment.api}/soiltest/newTest`,
+        JSON.stringify(data)
+      )
+      .subscribe((res: any) => {
+        console.log(res);
+
+        this.toastr.success('Request Submmited Successfully');
+        this.backToDashboard();
+      });
   }
 
   stateList() {
-    this.ht.getStateList().subscribe(
+    this.ds.getStateList().subscribe(
       (stateList: any) => {
         this.state_List = stateList.states;
       },
@@ -82,7 +132,7 @@ export class RequestFormComponent implements OnInit {
     this.requestFormObj.state = this.states.state_name;
 
     if (this.states.state_id) {
-      this.ht.getDistrictList(this.states.state_id).subscribe(
+      this.ds.getDistrictList(this.states.state_id).subscribe(
         (districtList: any) => {
           this.district_List = districtList.districts;
         },

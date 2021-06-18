@@ -11,7 +11,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  
   first_step = true;
   second_step = false;
   addMoreLand: any;
@@ -20,7 +19,7 @@ export class SignupComponent implements OnInit {
   district_List: any;
   stateLoaded = true;
   states: any;
-  districts:any;
+  districts: any;
   step1 = {
     name: '',
     email: '',
@@ -35,7 +34,7 @@ export class SignupComponent implements OnInit {
     pincode: null,
     state: '',
     district: '',
-    sizeofland: '',
+    sizeOfLand: '',
     landSizeUnit: 'Acre',
     waterSource: '',
     infoAboutCrop: '',
@@ -49,7 +48,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  moreLand(stepForm2:NgForm) {
+  moreLand(stepForm2: NgForm) {
     // console.log(this.addMoreLand);
     if (this.addMoreLand) {
       this.modal
@@ -78,15 +77,15 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  firstStep(stepForm1:NgForm) {
-    if(stepForm1.invalid){
+  firstStep(stepForm1: NgForm) {
+    if (stepForm1.invalid) {
       this.toastr.error('Please Fill All required Fields');
-      return
+      return;
     }
     if (this.step1.password === this.step1.cnfpassword) {
       this.first_step = false;
       this.second_step = true;
-      if(this.stateLoaded){
+      if (this.stateLoaded) {
         this.stateList();
         this.stateLoaded = false;
       }
@@ -107,11 +106,22 @@ export class SignupComponent implements OnInit {
     let finalObj: any = Object.assign({}, this.step1);
     finalObj['landInfo'] = this.landInfoArray;
     console.log(finalObj);
-    this.ds.basicPost(`${environment.api}/auth/register`, JSON.stringify(finalObj))
-    .subscribe((res: any) => {
-      this.toastr.success('User Registered Successfully, Logging Now!');
-      this.gs.isAuthenticated(res.data);
-    });
+    this.ds
+      .basicPost(`${environment.api}/auth/register`, JSON.stringify(finalObj))
+      .subscribe((res: any) => {
+        this.toastr.success('User Registered Successfully, Logged Now!');
+        this.ds
+          .login(
+            JSON.stringify({
+              email: finalObj.email,
+              password: finalObj.password,
+            })
+          )
+          .subscribe((userdata: any) => {
+            this.gs?.setToken(userdata.accesstoken);
+            this.gs?.isAuthenticated(userdata.profile);
+          });
+      });
   }
 
   stateList() {
@@ -125,7 +135,7 @@ export class SignupComponent implements OnInit {
     );
   }
 
-  selectD(){
+  selectD() {
     this.step2.district = this.districts.district_name;
   }
 

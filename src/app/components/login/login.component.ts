@@ -23,14 +23,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  loginIn(form: NgForm) {
-    this.ds.basicPost(`${environment.api}/auth/login`, JSON.stringify(this.userLoginForm)).subscribe(
+  loginIn() {
+    this.ds.login(JSON.stringify(this.userLoginForm)).subscribe(
       (userdata: any) => {
-        this.gs.setToken(userdata.accesstoken);
-        this.gs.isAuthenticated(userdata.profile);
+        delete userdata.password;
+        delete userdata.cnfpassword;
+        this.gs?.setToken(userdata.accesstoken);
+        this.gs?.isAuthenticated(userdata.profile);
       }, 
       (err: any) => {
-        this.toastr.error(err.error.message);
+        if(err.status){
+          this.toastr.warning(err.error.message); 
+        } else {
+          this.toastr.error('Something Went Wrong!!')
+        }
       }
     );
   }

@@ -58,6 +58,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   getTestingReq() {
     this.ds.get(`${environment.api}/soiltest/myTests`).subscribe((res: any) => {
+      console.log(res);
+      
       this.myTestingRequests = res;
     });
   }

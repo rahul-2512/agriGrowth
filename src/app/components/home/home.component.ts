@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
     },
     {
       step: 4,
-      heading: 'Get Predication Report',
-      description: 'Fill Soil Testing Form and get the Best Predication Report',
+      heading: 'Get Prediction Report',
+      description: 'Fill Soil Testing Form and get the Best Prediction Report',
     },
   ];
   constructor(private gs: GlobalService) {}

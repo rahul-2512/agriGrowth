@@ -18,7 +18,7 @@ export class TopbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ssuser = this.gs.getUserData();
+    this.ssuser = this.gs.getUserData();    
   }
 
   fullPageScroll(e: any) {

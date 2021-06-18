@@ -13,7 +13,7 @@
           #emailAddress="ngModel"
           email
           [(ngModel)]="userLoginForm.email"
-          required="true"
+          required
           class="form-control mb-4 registration-input-box"
         />
       </div>
@@ -22,19 +22,21 @@
         <label class="text-muted">Password</label>
         <input
           type="password"
+          minlength="6"
+          maxlength="32"
           autocomplete
           name="password"
           #password="ngModel"
           [(ngModel)]="userLoginForm.password"
-          required="true"
+          required
           class="form-control mb-4 registration-input-box"
         />
       </div>
 
       <div class="mt-4 pt-3">
         <button
-        type="button"
-        (click)="loginIn(loginForm)"
+          type="submit"
+          (click)="loginIn()"
           class="btn btn-primary btn-rounded"
           [disabled]="!loginForm.form.valid"
         >

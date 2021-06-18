@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 
@@ -8,7 +9,7 @@ export class GlobalService {
   rt: any;
   userInfo: any;
   accessToken: any;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private toastr: ToastrService) {}
 
   setRequestType(id: any) {
     this.rt = id;
@@ -22,7 +23,7 @@ export class GlobalService {
   }
 
   getUserData() {
-    let d:any = localStorage.getItem('user');
+    let d: any = localStorage.getItem('user');
     return JSON.parse(d);
   }
 
@@ -37,9 +38,12 @@ export class GlobalService {
 
   isAuthenticated(user: any) {
     this.setUserData(user);
-    if (this.getToken()) {
+    console.log(this.getToken());
+    
+    if (!!this.getToken()) {
       this.router.navigate(['/dashboard']);
+    } else {
+      this.toastr.error('Invalid Token');
     }
-    return true;
   }
 }

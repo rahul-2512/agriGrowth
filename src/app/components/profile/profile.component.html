@@ -8,7 +8,10 @@
           src="https://robohash.org/{{ userData.name }}"
           alt="{{ userData.name }}"
         />
-        <h4 class="f-20">{{ userData.name }}</h4> <span *ngIf="!userData?.isAdmin" class="badge badge-info">Admin</span>
+        <h4 class="f-20">{{ userData.name }}</h4>
+        <span *ngIf="userData?.role == 'admin'" class="badge badge-info"
+          >Admin</span
+        >
       </div>
 
       <div class="mt-4 pt-2">
@@ -30,29 +33,36 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-8" *ngIf="!(userData?.isAdmin)">
-    <h4 class="text-center mt-3">My Land's</h4>
-    <div class="row">
+  <div class="col-lg-8 card px-0 mt-4">
+    <div class="card-header pb-0">
+      <h4 class="text-center card-title">My Land's</h4>
+    </div>
+
+    <div class="card-body d-flex justify-content-between ">
       <div
         class="col-lg-4 col-sm-12"
         *ngFor="let land of userData.landInfo; let i = index"
       >
         <div class="card my-sm-2">
-          <div class="card-header bg-soft-info py-2">
-            <h5 class="my-1 card-title">{{ land.landmark }}</h5>
+          <div class="card-header bg-soft-info pb-0">
+            <h5 class="my-1 card-title">{{i+1}}. {{ land.landmark }}</h5>
           </div>
-          <div class="card-body table-responsive h-auto">
+          <div class="card-body table-responsive h-15">
             <address class="card-subtitle">
-             Address: <strong>{{ land.address }},
-             {{ land.district }} -{{ land.pincode }} , {{ land.state }}</strong>
+             
+              <strong
+                >{{ land.address }}, {{ land.district }} -{{ land.pincode }} ,
+                {{ land.state }}</strong
+              >
             </address>
+            <br>
             <ul>
               <li>Water Source: {{ land.waterSource }}</li>
               <li>Produce Crops: {{ land.infoAboutCrop }}</li>
             </ul>
           </div>
           <div class="card-footer">
-            Size: <strong>{{ land.sizeofland }}</strong> {{ land.landSizeUnit }}
+            Size: <strong>{{ land.sizeOfLand }}</strong> {{ land.landSizeUnit }}
           </div>
         </div>
       </div>

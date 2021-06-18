@@ -23,6 +23,7 @@ export class RequestFormComponent implements OnInit {
     requestor: '',
     email: '',
     phoneNo: null,
+    requestedFor: 'Other',
     landInfo: {
       address: '',
       landmark: '',
@@ -33,7 +34,6 @@ export class RequestFormComponent implements OnInit {
       landSizeUnit: 'Acre',
       waterSource: '',
       infoAboutCrop: '',
-      requestedFor: 'other',
     },
   };
   userInfo: any;

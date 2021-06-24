@@ -26,16 +26,18 @@ export class LoginComponent implements OnInit {
   loginIn() {
     this.ds.login(JSON.stringify(this.userLoginForm)).subscribe(
       (userdata: any) => {
-        delete userdata.password;
-        delete userdata.cnfpassword;
-        this.gs?.setToken(userdata.accesstoken);
-        this.gs?.isAuthenticated(userdata.profile);
-      }, 
-      (err: any) => {
-        if(err.status){
-          this.toastr.warning(err.error.message); 
+        if (userdata.accesstoken) {
+          this.gs?.setToken(userdata.accesstoken);
+          this.gs?.isAuthenticated(userdata.profile);
         } else {
-          this.toastr.error('Something Went Wrong!!')
+          console.log('Not Authorize');
+        }
+      },
+      (err: any) => {
+        if (err.status) {
+          this.toastr.warning(err.error.message);
+        } else {
+          this.toastr.error('Something Went Wrong!!');
         }
       }
     );

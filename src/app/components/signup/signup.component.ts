@@ -125,14 +125,9 @@ export class SignupComponent implements OnInit {
   }
 
   stateList() {
-    this.ds.getStateList().subscribe(
-      (stateList: any) => {
-        this.state_List = stateList.states;
-      },
-      () => {
-        this.toastr.error('Error While Fetching the States!!');
-      }
-    );
+    this.ds.getStateList((res)=> {
+      this.state_List = res;
+    })
   }
 
   selectD() {
@@ -143,14 +138,9 @@ export class SignupComponent implements OnInit {
     this.step2.state = this.states.state_name;
 
     if (this.states.state_id) {
-      this.ds.getDistrictList(this.states.state_id).subscribe(
-        (districtList: any) => {
-          this.district_List = districtList.districts;
-        },
-        () => {
-          this.toastr.error('Error While Fetching the District!!');
-        }
-      );
+      this.ds.getDistrictList(this.states.state_id, (res)=> {
+        this.district_List = res;
+      })
     }
   }
 }

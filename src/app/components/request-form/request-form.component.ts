@@ -38,7 +38,7 @@ export class RequestFormComponent implements OnInit {
   };
   userInfo: any;
   landInfoArray: any;
-  landmarkArray: any;
+  landmarkArray;
   selfRequestForm = {
     requestor: '',
     email: '',
@@ -88,14 +88,17 @@ export class RequestFormComponent implements OnInit {
     }
   }
 
-  chooseLandMark(e: any, land: any) {
+  chooseLandMark(e, land) {
     if (e.target.checked) {
-      this.selfRequestForm.landInfo = land;
-      this.landmarkArray.push(this.selfRequestForm);
-    } else {
-      this.landmarkArray = this.landmarkArray.filter((el: any) => {
-        return el !== land;
-      });
+      let formObj = Object.assign({}, this.selfRequestForm);
+      console.log('🚀 land', land);
+      formObj.landInfo = land;
+      this.landmarkArray.push(formObj);
+      // console.log(this.landmarkArray);
+    } else {          
+      let index = this.landmarkArray.indexOf(land);
+      this.landmarkArray.splice(index, 1);
+      // console.log('ksdnf',this.landmarkArray);  
     }
   }
 
@@ -123,14 +126,9 @@ export class RequestFormComponent implements OnInit {
   }
 
   stateList() {
-    this.ds.getStateList().subscribe(
-      (stateList: any) => {
-        this.state_List = stateList.states;
-      },
-      () => {
-        this.toastr.error('Error While Fetching the States!!');
-      }
-    );
+    this.ds.getStateList((res)=> {
+      this.state_List = res;
+    })
   }
 
   selectD() {
@@ -141,14 +139,9 @@ export class RequestFormComponent implements OnInit {
     this.requestFormObj.landInfo.state = this.states.state_name;
 
     if (this.states.state_id) {
-      this.ds.getDistrictList(this.states.state_id).subscribe(
-        (districtList: any) => {
-          this.district_List = districtList.districts;
-        },
-        () => {
-          this.toastr.error('Error While Fetching the District!!');
-        }
-      );
+      this.ds.getDistrictList(this.states.state_id, (res)=> {
+        this.district_List = res;
+      })
     }
   }
 }

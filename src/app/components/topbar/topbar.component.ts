@@ -27,4 +27,8 @@ export class TopbarComponent implements OnInit {
       document: this.document,
     });
   }
+
+  logout(){
+    localStorage.clear();
+  }
 }

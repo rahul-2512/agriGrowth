@@ -21,6 +21,7 @@ import { AuthService } from './services/auth.service';
 import { PredictionComponent } from './components/prediction/prediction.component';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard.service';
+import { FileSaverModule } from 'ngx-filesaver';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     HttpClientModule,
     FormsModule,
     NgbModule,
+    FileSaverModule,
     NgxPageScrollCoreModule.forRoot({ duration: 800 }),
     ToastrModule.forRoot({
       timeOut: 5000,

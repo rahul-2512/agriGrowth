@@ -30,12 +30,12 @@
             <th>Land Mark Name</th>
             <th>Request Date</th>
             <th>Status</th>
-            <th>Report</th>
+            <th>Action</th>
           </thead>
           <tbody>
             <tr *ngFor="let request of myTestingRequests">
               <td>{{ (request?._id).substr((request?._id).length - 6) }}</td>
-              <td>{{request?.requestor}}</td>
+              <td>{{ request?.requestor }}</td>
               <td>
                 <button class="btn btn-info btn-xs">
                   {{ request?.requestedFor }}
@@ -45,7 +45,7 @@
               <td>{{ request?.createdAt | date }}</td>
               <td>
                 <button
-                  class="btn btn-sm"
+                  class="btn btn-sm text-white"
                   [ngClass]="{
                     'btn-warning': request?.status == 'Pending',
                     'btn-success': request?.status != 'Pending'
@@ -54,12 +54,15 @@
                   {{ request?.status }}
                 </button>
               </td>
-              <td *ngIf="!!request?.report">
-                <button class="btn btn-sm btn-light">
+              <td>
+                <button class="btn btn-sm btn-light mr-2" *ngIf="!!request?.report">
                   <i class="fa fa-download"></i>
                 </button>
+                <!-- TODO -->
+                <!-- <button class="btn btn-sm btn-light">
+                  <i class="fa fa-trash"></i>
+                </button> -->
               </td>
-              <td *ngIf="!request?.report">-</td>
             </tr>
           </tbody>
         </table>
@@ -121,17 +124,20 @@
         <h6 class="card-title">User Request(s)</h6>
       </div>
       <div class="card-body table-responsive">
-        <table class="table table-hover">
+        <table class="table table-sm table-hover">
           <thead>
             <th>ID</th>
-            <th>Requeste</th>
+            <th>Requestor</th>
+            <th>Request For</th>
             <th>Land Mark Name</th>
             <th>Request Date</th>
             <th>Status</th>
+            <th>Action</th>
           </thead>
           <tbody>
             <tr *ngFor="let request of adminMyTestingRequests">
-              <td>{{ request?._id }}</td>
+              <td>{{ (request?._id).substr((request?._id).length - 6) }}</td>
+              <td>{{ request?.requestor }}</td>
               <td>
                 <button class="btn btn-info btn-xs">
                   {{ request?.requestedFor }}
@@ -143,11 +149,27 @@
                 <button
                   class="btn btn-sm"
                   [ngClass]="{
-                    'btn-warning': request?.status == 'pending',
-                    'btn-success': request?.status != 'pending'
+                    'btn-warning': request?.status == 'Pending',
+                    'btn-success': request?.status != 'Pending'
                   }"
                 >
                   {{ request?.status }}
+                </button>
+              </td>
+              <td>
+                <button
+                  class="btn btn-sm btn-info"
+                  (click)="uploadReportNow(request)"
+                  *ngIf="request?.status == 'Pending'"
+                >
+                  <i class="fa fa-upload"></i>
+                </button>
+                <button
+                  class="btn btn-sm btn-info"
+                  (click)="downloadReport(request._id)"
+                  *ngIf="request?.status !== 'Pending' && !!request.report"
+                >
+                  <i class="fa fa-download"></i>
                 </button>
               </td>
             </tr>
@@ -199,70 +221,201 @@
     <div class="card" *ngIf="showTesting === 'yes'">
       <div class="card-header">
         <h5 class="card-title">Enter Soil Details</h5>
-        <p class="card-subtitle small">Enter details from Downloaded Report</p>
+        <p class="card-subtitle small">Fill Soil & Land Details <i>One at a time</i></p>
       </div>
       <div class="card-body table-responsive">
         <form #getSoilData="ngForm" ngNativeValidate>
-          <div class="form-group">
-            <label for="name">Soil Type</label>
-            <input
-              type="text"
-              [(ngModel)]="soilData.soiltype"
-              class="form-control registration-input-box"
-              name="soiltype"
-              #soiltype="ngModel"
-              [required]="true"
-              placeholder="Soil Type"
-            />
+          <div class="d-lg-flex">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label for="name">Soil Type</label>
+                <input
+                  type="text"
+                  [(ngModel)]="soilData.cropInfo.soiltype"
+                  class="form-control registration-input-box"
+                  name="soiltype"
+                  #soiltype="ngModel"
+                  [required]="true"
+                  placeholder="Soil Type"
+                />
+              </div>
+              <div class="form-group">
+                <label for="name">Temperature</label>
+                <input
+                  type="text"
+                  [(ngModel)]="soilData.cropInfo.temp"
+                  class="form-control registration-input-box"
+                  name="temp"
+                  #temp="ngModel"
+                  [required]="true"
+                  placeholder="Enter Temperature"
+                />
+              </div>
+              <div class="form-group">
+                <label for="name">Humidity</label>
+                <input
+                  type="text"
+                  [(ngModel)]="soilData.cropInfo.humidity"
+                  class="form-control registration-input-box"
+                  name="humidity"
+                  #humidity="ngModel"
+                  [required]="true"
+                  placeholder="Enter Humidity"
+                />
+              </div>
+              <div class="form-group">
+                <label for="name">PH Value</label>
+                <input
+                  type="text"
+                  [(ngModel)]="soilData.cropInfo.ph"
+                  class="form-control registration-input-box"
+                  name="ph"
+                  #ph="ngModel"
+                  [required]="true"
+                  placeholder="Enter ph"
+                />
+              </div>
+              <div class="form-group">
+                <label for="name">RainFall</label>
+                <input
+                  type="text"
+                  [(ngModel)]="soilData.cropInfo.rainfall"
+                  class="form-control registration-input-box"
+                  name="rainfall"
+                  #rainfall="ngModel"
+                  [required]="true"
+                  placeholder="Rainfall"
+                />
+              </div>
+              <div class="form-group">
+                <label for="address">Address</label>
+                <input
+                  type="text"
+                  [(ngModel)]="soilData.landInfo.address"
+                  class="form-control registration-input-box"
+                  name="address"
+                  required
+                  placeholder="Enter Address"
+                />
+              </div>
+  
+              <div class="form-group">
+                <label for="landmark">Land Mark</label>
+                <input
+                  type="text"
+                  [(ngModel)]="soilData.landInfo.landmark"
+                  class="form-control registration-input-box"
+                  name="landmark"
+                  required
+                  placeholder="Enter landmark"
+                />
+              </div>
+            </div>
+            <div class="col-lg-6">
+              
+              <div class="form-group">
+                <label for="pincode">Pincode</label>
+                <input
+                  type="number"
+                  autocomplete
+                  [(ngModel)]="soilData.landInfo.pincode"
+                  class="form-control registration-input-box"
+                  name="pincode"
+                  pattern="^[1-9][0-9]{5}$"
+                  required
+                  placeholder="Pincode"
+                />
+              </div>
+              <div class="form-group">
+                <label for="state">State</label>
+                <select
+                  name="state"
+                  required
+                  [(ngModel)]="states"
+                  class="form-control registration-input-box"
+                  (change)="districtList()"
+                >
+                  <option value="undefined">Select State</option>
+                  <option *ngFor="let state of state_List" [ngValue]="state">
+                    {{ state.state_name }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="district">District</label>
+                <select
+                  name="district"
+                  required
+                  (change)="selectD()"
+                  [(ngModel)]="districts"
+                  class="form-control registration-input-box"
+                >
+                  <option value="">Select District</option>
+                  <option
+                    *ngFor="let district of district_List"
+                    [ngValue]="district"
+                  >
+                    {{ district.district_name }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="sizeofLand">Size of Land</label>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    [(ngModel)]="soilData.landInfo.sizeOfLand"
+                    required
+                    placeholder="Size of Land"
+                    class="form-control registration-input-box"
+                    name="sizeofLand"
+                  />
+                  <select
+                    name="landSizeUnit"
+                    [(ngModel)]="soilData.landInfo.landSizeUnit"
+                    class="form-control registration-input-box col-3"
+                  >
+                    <option value="Acre">Acre</option>
+                    <option value="Bigha">Bigha</option>
+                    <option value="Kila">Kila</option>
+                    <option value="Marba">Marba</option>
+                    <option value="meter2">Meter2</option>
+                    <option value="yard">Yard</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="WaterSource">Water Source</label>
+                <select
+                  name="WaterSource"
+                  required
+                  [(ngModel)]="soilData.landInfo.waterSource"
+                  class="form-control registration-input-box"
+                >
+                  <option value="">Select Source</option>
+                  <option value="Canal System">Canal System</option>
+                  <option value="Rain water harvesting">
+                    Rain water harvesting
+                  </option>
+                  <option value="Tube well">Tube well</option>
+                </select>
+              </div>
+  
+              <div class="form-group">
+                <label for="infoAboutCrop">Information About Crop</label>
+                <input
+                  type="text"
+                  class="form-control registration-input-box"
+                  name="infoAboutCrop"
+                  [(ngModel)]="soilData.landInfo.infoAboutCrop"
+                  required
+                  placeholder="What type of Crop you Produce"
+                />
+              </div>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="name">Temperature</label>
-            <input
-              type="text"
-              [(ngModel)]="soilData.temp"
-              class="form-control registration-input-box"
-              name="temp"
-              #temp="ngModel"
-              [required]="true"
-              placeholder="Enter Temperature"
-            />
-          </div>
-          <div class="form-group">
-            <label for="name">Humidity</label>
-            <input
-              type="text"
-              [(ngModel)]="soilData.humidity"
-              class="form-control registration-input-box"
-              name="humidity"
-              #humidity="ngModel"
-              [required]="true"
-              placeholder="Enter Humidity"
-            />
-          </div>
-          <div class="form-group">
-            <label for="name">PH Value</label>
-            <input
-              type="text"
-              [(ngModel)]="soilData.ph"
-              class="form-control registration-input-box"
-              name="ph"
-              #ph="ngModel"
-              [required]="true"
-              placeholder="Enter ph"
-            />
-          </div>
-          <div class="form-group">
-            <label for="name">RainFall</label>
-            <input
-              type="text"
-              [(ngModel)]="soilData.rainfall"
-              class="form-control registration-input-box"
-              name="rainfall"
-              #rainfall="ngModel"
-              [required]="true"
-              placeholder="Rainfall"
-            />
-          </div>
+         
+         
           <button
             type="button"
             (click)="submit(getSoilData)"

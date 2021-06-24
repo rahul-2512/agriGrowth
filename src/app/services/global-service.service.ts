@@ -9,6 +9,8 @@ export class GlobalService {
   rt: any;
   userInfo: any;
   accessToken: any;
+  stateInfo: any;
+  districtInfo: any;
   constructor(private router: Router, private toastr: ToastrService) {}
 
   setRequestType(id: any) {
@@ -45,5 +47,21 @@ export class GlobalService {
     } else {
       this.toastr.error('Invalid Token');
     }
+  }
+
+  setState(s){
+    this.stateInfo = s;
+  }
+
+  getState(){
+    return this.stateInfo;
+  }
+
+  setDistrict(d){
+    this.districtInfo = d;
+  }
+
+  getDisctrict(){
+    return this.districtInfo
   }
 }

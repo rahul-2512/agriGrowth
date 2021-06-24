@@ -113,6 +113,15 @@
           *ngIf="ssuser"
           >Dashboard</a
         >
+        <a
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="logout()"
+          href="/"
+          class="btn btn-sm btn-soft-light btn-round ml-2"
+          *ngIf="ssuser"
+          >Logout</a
+        >
       </div>
     </div>
   </div>

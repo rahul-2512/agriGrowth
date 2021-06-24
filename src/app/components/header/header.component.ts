@@ -13,11 +13,6 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.userData = this.gs.getUserData();
-    if (this.userData.role === 'admin') {
-      this.userData['isAdmin'] = true;
-    } else {
-      this.userData['isAdmin'] = false;
-    }
   }
 
   logout() {

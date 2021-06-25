@@ -40,7 +40,7 @@
           class="btn btn-primary btn-rounded"
           [disabled]="!loginForm.form.valid"
         >
-          Login
+          <i class="fa fa-reload" [ngClass]="{'fa-spin': isLogged}"></i> Login
         </button>
       </div>
     </form>

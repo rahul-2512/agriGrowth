@@ -55,13 +55,13 @@
                 </button>
               </td>
               <td>
-                <button class="btn btn-sm btn-light mr-2" *ngIf="!!request?.report">
+                <button class="btn btn-sm btn-light mr-2" 
+                (click)="downloadReport(request._id)" *ngIf="request?.report">
                   <i class="fa fa-download"></i>
                 </button>
-                <!-- TODO -->
-                <!-- <button class="btn btn-sm btn-light">
+                <button class="btn btn-md btn-light" *ngIf="!(request?.report)" (click)="deleteRequest(request?._id)">
                   <i class="fa fa-trash"></i>
-                </button> -->
+                </button>
               </td>
             </tr>
           </tbody>
@@ -108,7 +108,7 @@
                 </button>
               </td>
               <td *ngIf="!!request?.report">
-                <button class="btn btn-sm btn-light">
+                <button type="button" class="btn btn-sm btn-light" >
                   <i class="fa fa-download"></i>
                 </button>
               </td>

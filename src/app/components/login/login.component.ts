@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     email: '',
     password: '',
   };
+  isLogged = false;
   constructor(
     private gs: GlobalService,
     private ds: DataService,
@@ -27,8 +28,8 @@ export class LoginComponent implements OnInit {
     this.ds.login(JSON.stringify(this.userLoginForm)).subscribe(
       (userdata: any) => {
         if (userdata.accesstoken) {
-          this.gs?.setToken(userdata.accesstoken);
-          this.gs?.isAuthenticated(userdata.profile);
+          this.gs.setToken(userdata.accesstoken);
+          this.gs.isAuthenticated(userdata.profile);
         } else {
           console.log('Not Authorize');
         }

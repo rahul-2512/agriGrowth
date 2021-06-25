@@ -40,9 +40,7 @@ export class GlobalService {
 
   isAuthenticated(user: any) {
     this.setUserData(user);
-    console.log(this.getToken());
-    
-    if (!!this.getToken()) {
+    if (this.getToken()) {
       this.router.navigate(['/dashboard']);
     } else {
       this.toastr.error('Invalid Token');

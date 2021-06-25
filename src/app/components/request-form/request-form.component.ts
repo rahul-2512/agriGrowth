@@ -111,7 +111,7 @@ export class RequestFormComponent implements OnInit {
     }
   }
 
-  requestForSoilTesting(data: any) {
+  requestForSoilTesting(data) {
     this.ds
       .post(
         `${environment.api}/soiltest/newTest`,

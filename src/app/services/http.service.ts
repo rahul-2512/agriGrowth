@@ -1,12 +1,7 @@
-import { GlobalService } from 'src/app/services/global-service.service';
 import { environment } from './../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/internal/Observable';
-import { FileSaverService } from 'ngx-filesaver';
-let headers = new HttpHeaders();
 @Injectable({
   providedIn: 'root',
 })
@@ -14,16 +9,7 @@ export class DataService {
   authToken: any;
   state_list: any;
   district_List: any;
-  constructor(
-    private toastr: ToastrService,
-    private http: HttpClient,
-    private gs: GlobalService
-  ) {
-    this.authToken = this.gs.getToken();
-    if (this.authToken) {
-      headers = headers.set('x-auth-token', this.authToken);
-    }
-  }
+  constructor(private toastr: ToastrService, private http: HttpClient) {}
 
   getStateList(callback) {
     return this.http
@@ -69,36 +55,46 @@ export class DataService {
     });
   }
 
-  get(url: string, download?) {
-    if (download) {
-      headers.set('Content-Type', 'multipart/form-data');
-      headers.set('Accept', '*/*');
-    }
+  get(url: string) {
     return this.http.get(url, {
-      headers: new HttpHeaders().set('x-auth-token', this.authToken),
+      headers: new HttpHeaders().set(
+        'x-auth-token',
+        localStorage.getItem('token')
+      ),
     });
   }
-  downloadReport(url: string, download?) {
-    if (download) {
-      headers.set('Content-Type', 'multipart/form-data');
-      headers.set('Accept', '*/*');
-    }
+  downloadReport(url: string) {
     return this.http.get(url, {
-      headers: headers,
+      headers: new HttpHeaders()
+        .set('Content-Type', 'multipart/form-data')
+        .set('Accept', '*/*')
+        .set('x-auth-token', localStorage.getItem('token')),
       responseType: 'text',
     });
   }
 
-  post(url: string, payload: string) {
+  post(url: string, payload) {
     return this.http.post(url, payload, {
       headers: new HttpHeaders()
-        .set('x-auth-token', this.authToken)
+        .set('x-auth-token', localStorage.getItem('token'))
         .set('Content-Type', 'application/json'),
     });
   }
   upload(url: string, payload: string) {
     return this.http.post(url, payload, {
-      headers: new HttpHeaders().set('x-auth-token', this.authToken),
+      headers: new HttpHeaders().set(
+        'x-auth-token',
+        localStorage.getItem('token')
+      ),
+    });
+  }
+
+  deleteRequest(url: string) {
+    return this.http.delete(url, {
+      headers: new HttpHeaders().set(
+        'x-auth-token',
+        localStorage.getItem('token')
+      ),
     });
   }
 }

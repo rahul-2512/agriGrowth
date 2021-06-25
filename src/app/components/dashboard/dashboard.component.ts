@@ -62,6 +62,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.forAdmin = true;
       this.getAdminTestingReq();
     } else {
+      console.log('call');
+      
       this.forAdmin = false;
       this.getTestingReq();
     }
@@ -84,8 +86,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getTestingReq() {
     this.ds.get(`${environment.api}/soiltest/myTests`).subscribe(
       (res: any) => {
-        console.log(res);
-
         this.myTestingRequests = res;
       },
       (err) => {
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.log(err);
         }
       }
-    );
+    )
   }
 
   requestType = [
@@ -160,16 +160,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.router.navigate(['/requestForm']);
   }
 
+  deleteRequest(id){
+    this.ds.deleteRequest(`${environment.api}/soiltest/myTests/${id}`).subscribe((res)=> {
+      this.toastr.info('Deleted Request successfully');
+      this.getTestingReq();
+    })
+  }
+
   downloadReport(soilId: any) {
     this.ds
       .downloadReport(
-        `${environment.api}/soiltest/downloadReport/${soilId}`,
-        true
+        `${environment.api}/soiltest/downloadReport/${soilId}`
       )
       .subscribe(
         (res) => {
           // console.log('download', res);
-          let fileName = 'My Report';
+          let fileName = `My Report- ${soilId}`;
           let contentType = 'application/pdf';
           let b64Data = res;
           let blob = this.b64toBlob(b64Data, contentType);

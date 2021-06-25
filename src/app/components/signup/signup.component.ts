@@ -109,8 +109,11 @@ export class SignupComponent implements OnInit {
     this.ds
       .basicPost(`${environment.api}/auth/register`, JSON.stringify(finalObj))
       .subscribe((res: any) => {
-        this.toastr.success('User Registered Successfully, Logged Now!');
-        this.ds
+        if(res){
+          console.log(res);
+          
+          this.toastr.success('User Registered Successfully, Logged Now!');
+          this.ds
           .login(
             JSON.stringify({
               email: finalObj.email,
@@ -118,16 +121,18 @@ export class SignupComponent implements OnInit {
             })
           )
           .subscribe((userdata: any) => {
-            this.gs?.setToken(userdata.accesstoken);
-            this.gs?.isAuthenticated(userdata.profile);
+            this.gs.setToken(userdata.accesstoken);
+            this.gs.isAuthenticated(userdata.profile);
           });
+        }
+        
       });
   }
 
   stateList() {
-    this.ds.getStateList((res)=> {
+    this.ds.getStateList((res) => {
       this.state_List = res;
-    })
+    });
   }
 
   selectD() {
@@ -138,9 +143,9 @@ export class SignupComponent implements OnInit {
     this.step2.state = this.states.state_name;
 
     if (this.states.state_id) {
-      this.ds.getDistrictList(this.states.state_id, (res)=> {
+      this.ds.getDistrictList(this.states.state_id, (res) => {
         this.district_List = res;
-      })
+      });
     }
   }
 }

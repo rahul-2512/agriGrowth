@@ -40,25 +40,25 @@ export class HomeComponent implements OnInit {
   teamInfo = [
     {
       name: 'Rahul Sethia',
-      course: 'Btech(CSE)',
+      course: 'B.Tech (CSE)',
       email: 'rahulsethia085@gmail.com',
       phone: 9765645541,
     },
     {
       name: 'Krishna Baheti',
-      course: 'Btech(CSE)',
+      course: 'B.Tech (CSE)',
       email: 'krishnabaheti95@gmail.com',
       phone: 6003349452,
     },
     {
       name: 'Sharvari Jadhav',
-      course: 'Btech(CSE)',
+      course: 'B.Tech (CSE)',
       email: 'sharvarijadhav2727@gmail.com',
       phone: 7083682727,
     },
     {
       name: 'Manali Jadhav',
-      course: 'Btech(CSE)',
+      course: 'B.Tech (CSE)',
       email: 'manalijadhav1611@gmail.com',
       phone: 9011944862,
     },

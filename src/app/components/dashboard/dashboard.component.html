@@ -30,7 +30,7 @@
             <th>Land Mark Name</th>
             <th>Request Date</th>
             <th class="w-9">Report Status</th>
-            <th class="w-13">Predication Status</th>
+            <th class="w-13">Prediction Status</th>
             <th>Action</th>
           </thead>
           <tbody>
@@ -60,8 +60,8 @@
                   class="btn btn-sm text-white"
                   *ngIf="request?.report"
                   [ngClass]="{
-                    'btn-warning': request?.predictionStatus == 'Pending Predication',
-                    'btn-success': request?.predictionStatus != 'Pending Predication'
+                    'btn-warning': request?.predictionStatus == 'Pending Prediction',
+                    'btn-success': request?.predictionStatus != 'Pending Prediction'
                   }"
                 >
                   {{ request?.predictionStatus}}
@@ -80,9 +80,9 @@
                 </button>
                 <button
                   class="btn btn-sm btn-info mr-2"
-                  ngbTooltip="Download Predication"
-                  (click)="download(request._id, false, 'downloadPrediction', 'My Predication')"
-                  *ngIf="request?.predication "
+                  ngbTooltip="Download Prediction"
+                  (click)="download(request._id, false, 'downloadPrediction', 'My Prediction')"
+                  *ngIf="request?.prediction"
                 >
                   <i class="fa fa-cloud-download"></i>
                 </button>
@@ -144,7 +144,7 @@
                   {{ request?.status }}
                 </button>
               </td>
-              
+
               <td>
                 <button
                   triggers="mouseenter:mouseleave"
@@ -161,10 +161,10 @@
                   triggers="mouseenter:mouseleave"
                   placement="bottom"
                   data-toggle="hover"
-                  ngbPopover="Upload Predication"
+                  ngbPopover="Upload Prediction"
                   class="btn btn-sm btn-info mx-2"
-                  (click)="upload(request, 'predication')"
-                  *ngIf="request?.predictionStatus == 'Pending Predication' && request?.status == 'Completed Report'"
+                  (click)="upload(request, 'prediction')"
+                  *ngIf="request?.predictionStatus == 'Pending Prediction' && request?.status == 'Completed Report'"
                 >
                   <i class="fa fa-upload"></i>
                 </button>
@@ -355,7 +355,7 @@
 
 <ng-template #getPredictionModal let-c="close" let-d="dismiss">
   <div class="modal-header bg-white">
-    <h6 class="modal-title" id="myModalLabel">Predication Data</h6>
+    <h6 class="modal-title" id="myModalLabel">Prediction Data</h6>
     <button
       type="button"
       class="close"

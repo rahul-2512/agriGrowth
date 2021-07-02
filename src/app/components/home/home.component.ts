@@ -54,10 +54,10 @@ export class HomeComponent implements OnInit {
       name: 'Sharvari Jadhav',
       course: 'Btech(CSE)',
       email: 'sharvarijadhav2727@gmail.com',
-      phone: 9011944862,
+      phone: 7083682727,
     },
     {
-      name: 'Sharvari Jadhav',
+      name: 'Manali Jadhav',
       course: 'Btech(CSE)',
       email: 'manalijadhav1611@gmail.com',
       phone: 9011944862,

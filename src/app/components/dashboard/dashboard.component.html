@@ -29,7 +29,8 @@
             <th>Request For</th>
             <th>Land Mark Name</th>
             <th>Request Date</th>
-            <th>Status</th>
+            <th class="w-9">Report Status</th>
+            <th class="w-13">Predication Status</th>
             <th>Action</th>
           </thead>
           <tbody>
@@ -47,9 +48,8 @@
                 <button
                   class="btn btn-sm text-white"
                   [ngClass]="{
-                    'btn-warning': request?.status == 'Pending',
-                    'btn-success': request?.status != 'Pending',
-                    'btn-info': request?.status != 'Pending' && request?.soilInfo
+                    'btn-warning': request?.status == 'Pending Report',
+                    'btn-success': request?.status != 'Pending Report'
                   }"
                 >
                   {{ request?.status }}
@@ -57,8 +57,21 @@
               </td>
               <td>
                 <button
+                  class="btn btn-sm text-white"
+                  *ngIf="request?.report"
+                  [ngClass]="{
+                    'btn-warning': request?.predictionStatus == 'Pending Predication',
+                    'btn-success': request?.predictionStatus != 'Pending Predication'
+                  }"
+                >
+                  {{ request?.predictionStatus}}
+                </button>
+              </td>
+              <td>
+                <button
                   class="btn btn-sm btn-info mr-2"
-                  (click)="downloadReport(request._id, request.soilInfo)"
+                  ngbTooltip="Download Report"
+                  (click)="download(request._id, request.soilInfo, 'downloadReport', 'My Report')"
                   *ngIf="request?.report "
                 >
                   <i class="fa"
@@ -66,7 +79,16 @@
                   ></i>
                 </button>
                 <button
+                  class="btn btn-sm btn-info mr-2"
+                  ngbTooltip="Download Predication"
+                  (click)="download(request._id, false, 'downloadPrediction', 'My Predication')"
+                  *ngIf="request?.predication "
+                >
+                  <i class="fa fa-cloud-download"></i>
+                </button>
+                <button
                   class="btn btn-sm btn-info"
+                  ngbTooltip="Delete Request"
                   *ngIf="!request?.report"
                   (click)="deleteRequest(request?._id)"
                 >
@@ -115,22 +137,23 @@
                 <button
                   class="btn btn-sm"
                   [ngClass]="{
-                    'btn-warning': request?.status == 'Pending',
-                    'btn-success': request?.status != 'Pending'
+                    'btn-warning': request?.status == 'Pending Report',
+                    'btn-success': request?.status != 'Pending Report'
                   }"
                 >
                   {{ request?.status }}
                 </button>
               </td>
+              
               <td>
                 <button
                   triggers="mouseenter:mouseleave"
                   placement="bottom"
                   data-toggle="hover"
                   ngbPopover="Upload Report"
-                  class="btn btn-sm btn-info"
-                  (click)="uploadReportNow(request)"
-                  *ngIf="request?.status == 'Pending'"
+                  class="btn btn-sm btn-info mx-2"
+                  (click)="upload(request, 'report')"
+                  *ngIf="request?.status == 'Pending Report'"
                 >
                   <i class="fa fa-upload"></i>
                 </button>
@@ -138,15 +161,26 @@
                   triggers="mouseenter:mouseleave"
                   placement="bottom"
                   data-toggle="hover"
-                  ngbPopover="Download Report"
-                  class="btn btn-sm btn-info"
-                  (click)="downloadReport(request._id)"
-                  *ngIf="request?.status !== 'Pending' && !!request.report"
+                  ngbPopover="Upload Predication"
+                  class="btn btn-sm btn-info mx-2"
+                  (click)="upload(request, 'predication')"
+                  *ngIf="request?.predictionStatus == 'Pending Predication' && request?.status == 'Completed Report'"
                 >
-                  <i class="fa fa-download"></i>
+                  <i class="fa fa-upload"></i>
                 </button>
                 <button
-                  class="btn btn-sm ml-2 btn-info"
+                triggers="mouseenter:mouseleave"
+                placement="bottom"
+                data-toggle="hover"
+                ngbPopover="Download Report"
+                class="btn btn-sm btn-info mx-2"
+                (click)="download(request._id)"
+                *ngIf="request?.status !== 'Pending' && !!request.report"
+              >
+                <i class="fa fa-download"></i>
+              </button>
+                <button
+                  class="btn btn-sm mx-2 btn-info"
                   triggers="mouseenter:mouseleave"
                   placement="bottom"
                   data-toggle="hover"

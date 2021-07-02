@@ -63,7 +63,15 @@ export class DataService {
       ),
     });
   }
-  downloadReport(url: string) {
+  post(url: string, payload) {
+    return this.http.post(url, payload, {
+      headers: new HttpHeaders()
+        .set('x-auth-token', localStorage.getItem('token'))
+        .set('Content-Type', 'application/json'),
+    });
+  }
+
+  download(url: string) {
     return this.http.get(url, {
       headers: new HttpHeaders()
         .set('Content-Type', 'multipart/form-data')
@@ -73,13 +81,6 @@ export class DataService {
     });
   }
 
-  post(url: string, payload) {
-    return this.http.post(url, payload, {
-      headers: new HttpHeaders()
-        .set('x-auth-token', localStorage.getItem('token'))
-        .set('Content-Type', 'application/json'),
-    });
-  }
   upload(url: string, payload: string) {
     return this.http.post(url, payload, {
       headers: new HttpHeaders().set(

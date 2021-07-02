@@ -161,13 +161,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       );
   }
 
-  downloadReport(soilId: any, issoilInfo) {
+  download(soilId: any, issoilInfo, type, filename) {
     this.ds
-      .downloadReport(`${environment.api}/soiltest/downloadReport/${soilId}`)
+      .download(`${environment.api}/soiltest/${type}/${soilId}`)
       .subscribe(
         (res) => {
           // console.log('download', res);
-          let fileName = `My Report- ${soilId}`;
+          let fileName = `${filename}- ${soilId}`;
           let contentType = 'application/pdf';
           let b64Data = res;
           let blob = this.b64toBlob(b64Data, contentType);
@@ -216,9 +216,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     return blob;
   }
 
-  uploadReportNow(request) {
+  upload(request, type) {
     if (!!request._id) {
-      this.router.navigate(['/upload', {id: request._id, type: 'report'}]);
+      this.router.navigate(['/upload', {id: request._id, type: type}]);
     }
   }
 }

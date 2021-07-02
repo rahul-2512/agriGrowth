@@ -23,6 +23,7 @@ export class PredictionComponent implements OnInit {
     ph: '',
     rainfall: '',
   };
+  uploadType;
   constructor(
     private gs: GlobalService,
     private ds: DataService,
@@ -34,17 +35,18 @@ export class PredictionComponent implements OnInit {
   ngOnInit(): void {
     this.userData = this.gs.getUserData();
     this.soildId = this.route.snapshot.params.id;
+    this.uploadType = this.route.snapshot.params.type;
   }
 
   submit() {
     console.log(this.soilData);
   }
 
-  uploadReport(soilId, payload) {
+  upload(soilId, payload ,type) {
     this.ds
-      .upload(`${environment.api}/soiltest/uploadReport/${soilId}`, payload)
+      .upload(`${environment.api}/soiltest/${type}/${soilId}`, payload)
       .subscribe((res) => {
-        this.toastr.success('Report Uploaded Successfully!!');
+        this.toastr.success('Uploaded Successfully!!');
         this.router.navigate(['/dashboard']);
       }, (err)=> {
         this.toastr.error('Something Went Wrong, Please Check the File.')
@@ -75,7 +77,8 @@ export class PredictionComponent implements OnInit {
   prepareFormData(file, type) {
     let formdata = new FormData();
     formdata.append(type, file);
-
-    this.uploadReport(this.soildId, formdata);
+    let uploadTYpe;
+    type === 'report' ? uploadTYpe = 'uploadReport' : uploadTYpe = 'uploadPrediction'
+    this.upload(this.soildId, formdata, uploadTYpe);
   }
 }

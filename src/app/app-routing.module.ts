@@ -38,7 +38,7 @@ const routes: Routes = [
     canActivate: [AuthService]
   },
   {
-    path:'upload/:id',
+    path:'upload',
     component: PredictionComponent,
     canActivate: [AuthService]
   },

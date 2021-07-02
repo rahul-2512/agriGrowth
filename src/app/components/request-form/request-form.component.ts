@@ -36,6 +36,15 @@ export class RequestFormComponent implements OnInit {
       infoAboutCrop: '',
     },
   };
+  cropRequestObj = {
+    state: '',
+    district: '',
+    cropYear: null,
+    season: '',
+    crop: '',
+    area: '',
+    production: null
+  };
   userInfo: any;
   landInfoArray: any;
   landmarkArray;
@@ -44,6 +53,10 @@ export class RequestFormComponent implements OnInit {
     email: '',
     phoneNo: null,
     landInfo: {},
+  };
+  cropInfoRequestObj = {
+    cropInfo: {},
+    soiltestId: null,
   };
   constructor(
     private gs: GlobalService,
@@ -60,18 +73,19 @@ export class RequestFormComponent implements OnInit {
       this.selfRequestForm['requestor'] = this.userInfo.name;
       this.selfRequestForm['email'] = this.userInfo.email;
       this.selfRequestForm['phoneNo'] = this.userInfo.phoneNo;
-
       this.getLandMarkDetails();
+    } else {
+      this.stateList();
     }
     if (!this.myLand) {
       this.backToDashboard();
     }
-    this.stateList();
   }
 
   getLandMarkDetails() {
     this.landInfoArray = [];
     this.userInfo.landInfo.forEach((land: any) => {
+      this.cropInfoRequestObj.cropInfo = land.cropInfo;
       this.landInfoArray.push(land);
       land['isChecked'] = false;
     });
@@ -91,20 +105,20 @@ export class RequestFormComponent implements OnInit {
   chooseLandMark(e, land) {
     if (e.target.checked) {
       let formObj = Object.assign({}, this.selfRequestForm);
-      console.log('🚀 land', land);
+      // console.log('🚀 land', land);
       formObj.landInfo = land;
       this.landmarkArray.push(formObj);
       // console.log(this.landmarkArray);
-    } else {          
+    } else {
       let index = this.landmarkArray.indexOf(land);
       this.landmarkArray.splice(index, 1);
-      // console.log('ksdnf',this.landmarkArray);  
     }
   }
 
   submitRequest(form: NgForm) {
     if (!form.invalid) {
       console.log(this.requestFormObj);
+      this.cropInfoRequestObj.cropInfo = this.cropRequestObj;
       this.requestForSoilTesting([this.requestFormObj]);
     } else {
       this.toastr.warning('Please Fill All the Fields!');
@@ -119,29 +133,47 @@ export class RequestFormComponent implements OnInit {
       )
       .subscribe((res: any) => {
         console.log(res);
-
+        res.forEach((req) => {
+          this.cropInfoRequestObj.soiltestId = req._id;
+          this.addCropInfo();
+        });
         this.toastr.success('Request Submmited Successfully');
         this.backToDashboard();
       });
   }
 
+  addCropInfo() {
+    this.ds
+      .post(
+        `${environment.api}/soiltest/cropInfo`,
+        JSON.stringify(this.cropInfoRequestObj)
+      )
+      .subscribe((res: any) => {
+        console.log(res);
+      });
+  }
+
   stateList() {
-    this.ds.getStateList((res)=> {
+    this.ds.getStateList((res) => {
+      console.log(res);
+
       this.state_List = res;
-    })
+    });
   }
 
   selectD() {
     this.requestFormObj.landInfo.district = this.districts.district_name;
+    this.cropRequestObj.district = this.districts.district_name;
   }
 
   districtList() {
     this.requestFormObj.landInfo.state = this.states.state_name;
+    this.cropRequestObj.state = this.states.state_name;
 
     if (this.states.state_id) {
-      this.ds.getDistrictList(this.states.state_id, (res)=> {
+      this.ds.getDistrictList(this.states.state_id, (res) => {
         this.district_List = res;
-      })
+      });
     }
   }
 }

@@ -36,6 +36,33 @@ export class HomeComponent implements OnInit {
       description: 'Fill Soil Testing Form and get the Best Prediction Report',
     },
   ];
+
+  teamInfo = [
+    {
+      name: 'Rahul Sethia',
+      course: 'Btech(CSE)',
+      email: 'rahulsethia085@gmail.com',
+      phone: 9765645541,
+    },
+    {
+      name: 'Krishna Baheti',
+      course: 'Btech(CSE)',
+      email: 'krishnabaheti95@gmail.com',
+      phone: 6003349452,
+    },
+    {
+      name: 'Sharvari Jadhav',
+      course: 'Btech(CSE)',
+      email: 'sharvarijadhav2727@gmail.com',
+      phone: 9011944862,
+    },
+    {
+      name: 'Sharvari Jadhav',
+      course: 'Btech(CSE)',
+      email: 'manalijadhav1611@gmail.com',
+      phone: 9011944862,
+    },
+  ];
   constructor(private gs: GlobalService) {}
 
   ngOnInit(): void {

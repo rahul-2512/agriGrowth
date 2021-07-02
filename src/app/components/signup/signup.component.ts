@@ -38,6 +38,17 @@ export class SignupComponent implements OnInit {
     landSizeUnit: 'Acre',
     waterSource: '',
     infoAboutCrop: '',
+    cropInfo: {}
+  };
+
+  step3 = {
+    state: '',
+    district: '',
+    cropYear: null,
+    season: '',
+    crop: '',
+    area: '',
+    production: null,
   };
   constructor(
     private toastr: ToastrService,
@@ -48,7 +59,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  moreLand(stepForm2: NgForm) {
+  moreLand(stepForm2: NgForm, stepForm3:NgForm) {
     // console.log(this.addMoreLand);
     if (this.addMoreLand) {
       this.modal
@@ -61,6 +72,9 @@ export class SignupComponent implements OnInit {
             }
           });
           let landInfo = Object.assign({}, this.step2);
+          let cropInfo = Object.assign({}, this.step3);
+          landInfo['cropInfo'] = cropInfo;
+          
           this.landInfoArray.push(landInfo);
           this.toastr.success(
             `SuccessFully Added Land for Land Mark ${this.step2.landmark}`
@@ -69,6 +83,7 @@ export class SignupComponent implements OnInit {
           console.log('landInfoArray', this.landInfoArray);
           this.addMoreLand = false;
           stepForm2.reset();
+          stepForm3.reset();
         })
         .catch(() => {
           this.addMoreLand = false;
@@ -101,31 +116,32 @@ export class SignupComponent implements OnInit {
 
   signUp() {
     let landInfo = Object.assign({}, this.step2);
+    let cropInfo = Object.assign({}, this.step3);
+    landInfo['cropInfo'] = cropInfo;
     this.landInfoArray.push(landInfo);
-
+    
     let finalObj: any = Object.assign({}, this.step1);
     finalObj['landInfo'] = this.landInfoArray;
-    console.log(finalObj);
+    console.log('payLoad ',finalObj);
     this.ds
       .basicPost(`${environment.api}/auth/register`, JSON.stringify(finalObj))
       .subscribe((res: any) => {
-        if(res){
+        if (res) {
           console.log(res);
-          
+
           this.toastr.success('User Registered Successfully, Logged Now!');
           this.ds
-          .login(
-            JSON.stringify({
-              email: finalObj.email,
-              password: finalObj.password,
-            })
-          )
-          .subscribe((userdata: any) => {
-            this.gs.setToken(userdata.accesstoken);
-            this.gs.isAuthenticated(userdata.profile);
-          });
+            .login(
+              JSON.stringify({
+                email: finalObj.email,
+                password: finalObj.password,
+              })
+            )
+            .subscribe((userdata: any) => {
+              this.gs.setToken(userdata.accesstoken);
+              this.gs.isAuthenticated(userdata.profile);
+            });
         }
-        
       });
   }
 
@@ -137,10 +153,12 @@ export class SignupComponent implements OnInit {
 
   selectD() {
     this.step2.district = this.districts.district_name;
+    this.step3.district = this.districts.district_name;
   }
 
   districtList() {
     this.step2.state = this.states.state_name;
+    this.step3.state = this.states.state_name;
 
     if (this.states.state_id) {
       this.ds.getDistrictList(this.states.state_id, (res) => {

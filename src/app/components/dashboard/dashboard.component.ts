@@ -2,7 +2,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { DataService } from 'src/app/services/http.service';
 import { GlobalService } from './../../services/global-service.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
@@ -14,36 +14,28 @@ import { FileSaverService } from 'ngx-filesaver';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+  @ViewChild('getPredictionModal') getPredictionModal;
   forAdmin: any;
   soilTestingEarlier = 'no';
   showTesting = 'no';
   userData: any;
   adminMyTestingRequests: any;
+  landInfoArray: any;
   soilData = {
-    cropInfo: {
+    soilInfo: {
       soiltype: '',
       temp: '',
       humidity: '',
       ph: '',
       rainfall: '',
     },
-    landInfo: {
-      address: '',
-      landmark: '',
-      pincode: null,
-      state: '',
-      district: '',
-      sizeOfLand: '',
-      landSizeUnit: 'Acre',
-      waterSource: '',
-      infoAboutCrop: '',
-    },
+    soiltestId: null,
   };
   myTestingRequests: any;
   districts: any;
   states: any;
-  district_List:any;
-  state_List:any;
+  district_List: any;
+  state_List: any;
   constructor(
     private modalService: NgbModal,
     private router: Router,
@@ -62,8 +54,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.forAdmin = true;
       this.getAdminTestingReq();
     } else {
-      console.log('call');
-      
       this.forAdmin = false;
       this.getTestingReq();
     }
@@ -78,6 +68,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         if (err.status == 401) {
           this.toastr.error('You are Unauthorized to See this content!');
           this.router.navigate(['/home']);
+        } else {
+          this.toastr.error('Error while Fetching the Data!');
         }
       }
     );
@@ -91,9 +83,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
       (err) => {
         if (err.status == 401) {
           console.log(err);
+        } else {
+          this.toastr.error('Error while Fetching the Data!');
         }
       }
-    )
+    );
   }
 
   requestType = [
@@ -107,45 +101,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   reqForSoil(content: any) {
     this.modalService.open(content, { size: 'lg' });
-    this.stateList();
   }
 
   getPrediction() {
     this.ds
       .post(
-        `${environment.api}/soiltest/cropInfo`,
+        `${environment.api}/soiltest/soilInfo`,
         JSON.stringify(this.soilData)
       )
       .subscribe(
         (res: any) => {
           console.log(res);
+          res.report = null;
+          this.modalService.dismissAll();
         },
         (err) => {
           if (err.status == 401) {
             console.log(err);
+          } else {
+            this.toastr.error('Error while Fetching the Data!');
           }
         }
       );
-  }
-
-  stateList() {
-    this.ds.getStateList((res)=> {
-      this.state_List = res;
-    })
-  }
-
-  selectD() {
-    this.soilData.landInfo.district = this.districts.district_name;
-  }
-
-  districtList() {
-    this.soilData.landInfo.state = this.states.state_name;
-    
-    if (this.states.state_id) {
-      this.ds.getDistrictList(this.states.state_id, (res)=> {
-        this.district_List = res;
-      })
-    }
   }
 
   submit(form: NgForm) {
@@ -153,6 +130,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.toastr.warning('Invalid Form Input');
       return;
     }
+    console.log(this.soilData);
+    
     this.getPrediction();
   }
   requestForLand(id: any) {
@@ -160,18 +139,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.router.navigate(['/requestForm']);
   }
 
-  deleteRequest(id){
-    this.ds.deleteRequest(`${environment.api}/soiltest/myTests/${id}`).subscribe((res)=> {
-      this.toastr.info('Deleted Request successfully');
-      this.getTestingReq();
-    })
+  chooseLandMark(e, land) {
+    console.log(land);
+    
+    e.target.checked
+      ? (this.soilData.soiltestId = land._id)
+      : (this.soilData.soiltestId = null);
   }
 
-  downloadReport(soilId: any) {
+  deleteRequest(id, isAdmin?) {
     this.ds
-      .downloadReport(
-        `${environment.api}/soiltest/downloadReport/${soilId}`
-      )
+      .deleteRequest(`${environment.api}/soiltest/myTests/${id}`)
+      .subscribe(
+        (res) => {
+          this.toastr.info('Deleted Request successfully');
+          isAdmin ? this.getAdminTestingReq() : this.getTestingReq();
+        },
+        (err) => {
+          this.toastr.error('Error while Fetching the Data!');
+        }
+      );
+  }
+
+  downloadReport(soilId: any, issoilInfo) {
+    this.ds
+      .downloadReport(`${environment.api}/soiltest/downloadReport/${soilId}`)
       .subscribe(
         (res) => {
           // console.log('download', res);
@@ -181,13 +173,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
           let blob = this.b64toBlob(b64Data, contentType);
           let file = new Blob([blob], { type: contentType });
           this.fileSaver.save(file, fileName);
+          if(!issoilInfo){
+            this.predicationPopupOnDownload(this.getPredictionModal, soilId);
+          }
         },
         (err) => {
           if (err.status == 401) {
             console.log(err);
+          } else {
+            this.toastr.error('Error while Downloading the Report!');
           }
         }
       );
+  }
+
+  predicationPopupOnDownload(content, soilId){
+    this.soilData.soiltestId = soilId
+    this.modalService.open(content, {size: 'lg'});
   }
 
   b64toBlob(b64Data, contentType, sliceSize?) {
@@ -215,8 +217,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   uploadReportNow(request) {
-    if (request._id) {
-      this.router.navigate(['/upload', request._id]);
+    if (!!request._id) {
+      this.router.navigate(['/upload', {id: request._id, type: 'report'}]);
     }
   }
 }

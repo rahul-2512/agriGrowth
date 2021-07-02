@@ -1,6 +1,6 @@
 {
   "name": "agri-growth",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -23,7 +23,6 @@
     "@angular/platform-browser": "~11.2.11",
     "@angular/platform-browser-dynamic": "~11.2.11",
     "@angular/router": "~11.2.11",
-    "@auth0/angular-jwt": "^5.0.2",
     "@ng-bootstrap/ng-bootstrap": "^9.1.1",
     "bootstrap": "^4.5.0",
     "file-saver": "^2.0.5",
@@ -39,7 +38,6 @@
     "@angular-devkit/build-angular": "~0.1102.10",
     "@angular/cli": "~11.2.10",
     "@angular/compiler-cli": "~11.2.11",
-    "@ngx-formly/schematics": "^5.10.19",
     "@types/file-saver": "^2.0.2",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",

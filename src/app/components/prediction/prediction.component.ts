@@ -51,30 +51,30 @@ export class PredictionComponent implements OnInit {
       });
   }
 
-  onFileDropped($event) {
-    this.prepareFilesList($event);
+  onFileDropped($event, type) {
+    this.prepareFilesList($event, type);
   }
 
-  fileBrowseHandler(files) {
-    this.prepareFilesList(files);
+  fileBrowseHandler(files, type) {
+    this.prepareFilesList(files, type);
   }
 
-  prepareFilesList(files) {
+  prepareFilesList(files, type) {
     let reader = new FileReader();
     if (files && files.length > 0) {
       let file = files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
         console.log(file);
-        this.prepareFormData(file);
+        this.prepareFormData(file, type);
       };
     }
     this.fileDropEl.nativeElement.value = '';
   }
 
-  prepareFormData(file) {
+  prepareFormData(file, type) {
     let formdata = new FormData();
-    formdata.append('report', file);
+    formdata.append(type, file);
 
     this.uploadReport(this.soildId, formdata);
   }

@@ -21,7 +21,7 @@
         <div class="row no-gutters align-items-center">
           <div class="col-lg-12">
             <div class="login-box">
-              <div class="row align-items-center no-gutters">
+              <div class="row align-items-center no-gutters" [hidden]="!first_step">
                 <div class="col-lg-6">
                   <div class="bg-light">
                     <div class="row justify-content-center">
@@ -64,8 +64,8 @@
                           </p>
                         </div>
                         <div class="p-3 custom-form" [hidden]="!first_step">
-                          <p class="text-muted text-center text-uppercase h3">
-                            Step - I
+                          <p class="text-muted text-center text-uppercase h5">
+                            Step - I (User Info)
                           </p>
                           <form #stepForm1="ngForm" ngNativeValidate>
                             <div class="form-group">
@@ -163,10 +163,91 @@
                             </div>
                           </form>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
+              </div>
+
+              <div class="row" [hidden]="!second_step">
+                <div class="col-lg-6">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-11">
+                      <div class="p-4">
                         <div class="p-3 custom-form" [hidden]="!second_step">
-                          <p class="text-muted text-center text-uppercase h3">
-                            Step - II
+                          <p class="text-muted text-center text-uppercase h5">
+                            Step - II (Crop Info)
+                          </p>
+                          <form #stepForm3="ngForm" ngNativeValidate>
+                            <div class="form-group">
+                              <label for="cropName">Crop</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step3.crop"
+                                class="form-control registration-input-box"
+                                name="cropName"
+                                required
+                                placeholder="Enter Crop Name"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="cropYear">Crop Year</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step3.cropYear"
+                                class="form-control registration-input-box"
+                                name="cropYear"
+                                required
+                                placeholder="Enter Crop Year"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="seaon">Season</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step3.season"
+                                class="form-control registration-input-box"
+                                name="seaon"
+                                required
+                                placeholder="Enter season"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="Area">Area</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step3.area"
+                                class="form-control registration-input-box"
+                                name="Area"
+                                required
+                                placeholder="Enter Area"
+                              />
+                            </div>
+                            <div class="form-group">
+                              <label for="prod">Production</label>
+                              <input
+                                type="text"
+                                [(ngModel)]="step3.production"
+                                class="form-control registration-input-box"
+                                name="prod"
+                                required
+                                placeholder="Enter Production"
+                              />
+                            </div>
+                          </form>
+                        </div> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="row justify-content-center">
+                    <div class="col-lg-11">
+                      <div class="p-4">
+                        <div class="p-3 custom-form" [hidden]="!second_step">
+                          <p class="text-muted text-center text-uppercase h5">
+                            Step - II ( Land Info)
                           </p>
                           <form #stepForm2="ngForm" ngNativeValidate>
                             <div class="form-group">
@@ -180,7 +261,7 @@
                                 placeholder="Enter Address"
                               />
                             </div>
-
+        
                             <div class="form-group">
                               <label for="landmark">Land Mark</label>
                               <input
@@ -192,7 +273,7 @@
                                 placeholder="Enter landmark"
                               />
                             </div>
-
+        
                             <div class="form-group">
                               <label for="pincode">Pincode</label>
                               <input
@@ -289,7 +370,7 @@
                                 <option value="Tube well">Tube well</option>
                               </select>
                             </div>
-
+        
                             <div class="form-group">
                               <label for="infoAboutCrop"
                                 >Information About Crop</label
@@ -302,45 +383,47 @@
                                 required
                                 placeholder="What type of Crop you Produce"
                               />
-                            </div>
-
-                            <div class="custom-control custom-checkbox">
-                              <input
-                                type="checkbox"
-                                name="addMoreLand"
-                                id="addMoreLand"
-                                (change)="moreLand(stepForm2)"
-                                [(ngModel)]="addMoreLand"
-                                class="custom-control-input"
-                              />
-                              <label
-                                class="custom-control-label"
-                                for="addMoreLand"
-                                >I've Other Land Also</label
-                              >
-                            </div>
-
-                            <div class="d-flex justify-content-between mt-3">
-                              <button
-                                type="button"
-                                (click)="prevStep()"
-                                class="btn btn-primary float-left"
-                              >
-                                &larr; Back
-                              </button>
-                              <button
-                                type="button"
-                                (click)="signUp()"
-                                [disabled]="stepForm2.invalid"
-                                class="btn btn-primary float-right"
-                              >
-                                Signup
-                              </button>
-                            </div>
+                            </div>       
+                            
                           </form>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 p-5">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      name="addMoreLand"
+                      id="addMoreLand"
+                      (change)="moreLand(stepForm2,stepForm3)"
+                      [(ngModel)]="addMoreLand"
+                      class="custom-control-input"
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="addMoreLand"
+                      >I've Other Land Also</label
+                    >
+                  </div>
+
+                  <div class="d-flex justify-content-between mt-3">
+                    <button
+                      type="button"
+                      (click)="prevStep()"
+                      class="btn btn-primary float-left"
+                    >
+                      &larr; Back
+                    </button>
+                    <button
+                      type="button"
+                      (click)="signUp()"
+                      [disabled]="stepForm2.invalid"
+                      class="btn btn-primary float-right"
+                    >
+                      Signup
+                    </button>
                   </div>
                 </div>
               </div>

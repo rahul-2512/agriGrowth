@@ -39,14 +39,14 @@
           </div>
           <div class="col-sm-12">
             <button
-            type="button"
+              type="button"
               class="btn btn-outline-dark float-left"
               (click)="backToDashboard()"
             >
               Back
             </button>
             <button
-            type="button"
+              type="button"
               class="btn btn-primary float-right"
               (click)="submitForOwn(self_Form)"
             >
@@ -147,8 +147,6 @@
                   placeholder="Pincode"
                 />
               </div>
-            </div>
-            <div class="col-lg-6">
               <div class="form-group">
                 <label for="state">State</label>
                 <select
@@ -182,6 +180,8 @@
                   </option>
                 </select>
               </div>
+            </div>
+            <div class="col-lg-6">
               <div class="form-group">
                 <label for="sizeofLand">Size of Land</label>
                 <div class="input-group">
@@ -235,18 +235,73 @@
                   placeholder="What type of Crop you Produce"
                 />
               </div>
+              <div class="form-group">
+                <label for="cropName">Crop</label>
+                <input
+                  type="text"
+                  [(ngModel)]="cropRequestObj.crop"
+                  class="form-control registration-input-box"
+                  name="cropName"
+                  required
+                  placeholder="Enter Crop Name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="cropYear">Crop Year</label>
+                <input
+                  type="text"
+                  [(ngModel)]="cropRequestObj.cropYear"
+                  class="form-control registration-input-box"
+                  name="cropYear"
+                  required
+                  placeholder="Enter Crop Year"
+                />
+              </div>
+              <div class="form-group">
+                <label for="seaon">Season</label>
+                <input
+                  type="text"
+                  [(ngModel)]="cropRequestObj.season"
+                  class="form-control registration-input-box"
+                  name="seaon"
+                  required
+                  placeholder="Enter season"
+                />
+              </div>
+              <div class="form-group">
+                <label for="Area">Area</label>
+                <input
+                  type="text"
+                  [(ngModel)]="cropRequestObj.area"
+                  class="form-control registration-input-box"
+                  name="Area"
+                  required
+                  placeholder="Enter Area"
+                />
+              </div>
+              <div class="form-group">
+                <label for="prod">Production</label>
+                <input
+                  type="text"
+                  [(ngModel)]="cropRequestObj.production"
+                  class="form-control registration-input-box"
+                  name="prod"
+                  required
+                  placeholder="Enter Production"
+                />
+              </div>
             </div>
           </div>
           <div class="col-sm-12">
             <button
-            type="button"
+              type="button"
               class="btn btn-outline-dark float-left"
               (click)="backToDashboard()"
             >
               Back
             </button>
             <button
-            type="button"
+              type="button"
               class="btn btn-primary float-right"
               (click)="submitRequest(ForSomeoneElse)"
             >

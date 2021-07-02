@@ -19,7 +19,6 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { HeaderComponent } from './components/header/header.component';
 import { AuthService } from './services/auth.service';
 import { PredictionComponent } from './components/prediction/prediction.component';
-import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthGuardService } from './services/auth-guard.service';
 import { FileSaverModule } from 'ngx-filesaver';
 @NgModule({
@@ -53,9 +52,7 @@ import { FileSaverModule } from 'ngx-filesaver';
   ],
   entryComponents: [],
   providers: [
-    AuthService,AuthGuardService,
-    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
-    JwtHelperService,
+    AuthService,AuthGuardService
   ],
   bootstrap: [AppComponent],
 })

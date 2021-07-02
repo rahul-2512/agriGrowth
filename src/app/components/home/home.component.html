@@ -34,7 +34,7 @@
       <div class="col-lg-12">
         <div class="title-box text-center">
           <h3 class="title-heading mt-4">About us</h3>
-          <p class="text-muted f-17 mt-3">Know what we do</p>
+          <p class="text-muted f-17 mt-3">We as Agri Growth ,want to assure you that we will provide best crops predication for your land based on soil type, humidity, ph value and rain measures with accuracy more than 90%.</p>
 
           <img
             src="assets/images/home-border.png"
@@ -55,15 +55,8 @@
 
           <h5 class="mt-4">About us</h5>
           <p class="text-muted mt-3">
-            Quisque rhoncus lectus ut lectus hendrerit at convallis lorem ornare
-            pellentesque lobortis hendrerit mattis.
+            We want you to create a system than can help farmers to yield better crops and earn profits, which will eventually help in to grow Country’s GDP
           </p>
-
-          <div class="mt-3">
-            <a href="" class="text-primary f-16"
-              >Learn More <i class="fa fa-arrow-right ml-1"></i
-            ></a>
-          </div>
         </div>
       </div>
 
@@ -75,15 +68,9 @@
 
           <h5 class="mt-4">Vision</h5>
           <p class="text-muted mt-3">
-            Vestibulum eu tortor artett tortor rhoncus porta quis on metus morbi
-            comodo nisi vitae neque aliquam aliquam.
+            Our vision is to encourage people to words the modern farming and providing them source to earn good crops and profits. And also ensuring them for better future.
           </p>
 
-          <div class="mt-3">
-            <a href="" class="text-primary f-16"
-              >Learn More <i class="fa fa-arrow-right ml-1"></i
-            ></a>
-          </div>
         </div>
       </div>
 
@@ -95,15 +82,9 @@
 
           <h5 class="mt-4">Future Scope</h5>
           <p class="text-muted mt-3">
-            Aliquam dictum mollis sem sed hendrerit tempus sed class aptent
-            taciti sociosqu litora conubia himenaeos.
+            Use of soil moisture sensors, environment sensors, pH sensors to increase the accuracy while predicting the crop. Locations market requirements can be consider, and neighbor farmers crop while suggesting the suitable crop.
           </p>
 
-          <div class="mt-3">
-            <a href="" class="text-primary f-16"
-              >Learn More <i class="fa fa-arrow-right ml-1"></i
-            ></a>
-          </div>
         </div>
       </div>
     </div>
@@ -153,24 +134,15 @@
         <div class="text-center">
           <h2>Get Started With <span class="text-primary">AgriGrowth</span></h2>
           <p class="text-muted mt-3">
-            Quisque iaculis urna eu magna semper quis ultrices lectus efficitur
-            Praesent convallis velit urna, vitae tristique tellus feugiat a
-            maecenas diam metus convallis id cursus vel tellus.<br />
-            Curabitur ullamcorper feugiat convallis.
+            Agri Growth is crop yield prediction system , which will predict the best crop for land with accuracy rate more than 90% .So join us today for developing better future together.
           </p>
 
           <div class="mt-4 pt-2">
             <a
               href="javascript:void(0)"
-              routerLink="/"
-              class="btn btn-soft-primary btn-round mr-3 btn-rounded"
-              >Request a demo</a
-            >
-            <a
-              href="javascript:void(0)"
               routerLink="/signup"
               class="btn btn-primary btn-round btn-rounded"
-              >Get Started Now</a
+              >Get Started</a
             >
           </div>
         </div>
@@ -186,11 +158,6 @@
       <div class="col-lg-12">
         <div class="title-box text-center">
           <h3 class="title-heading mt-4">Meet Our Team</h3>
-          <p class="text-muted f-17 mt-3">
-            Vivamus ac nulla ultrices laoreet neque mollis mi morbi elementum
-            mauris sit amet arcu <br />
-            fringilla auctor In eleifend maximus nisi sed vulputate.
-          </p>
 
           <img
             src="assets/images/home-border.png"
@@ -206,78 +173,25 @@
       <div class="col-lg-12">
         <div class="team-carousel">
           <div class="team-box p-3">
-            <div class="row align-items-center">
-              <div class="col-lg-6">
-                <div class="mt-4">
-                  <h5 class="mt-2">Rahul Sethia</h5>
-                  <p class="team-badge bg-primary text-white rounded f-14 mt-2">
-                    #RAHUL
-                  </p>
-                  <p class="text-muted mt-3"></p>
-
-                  <div class="team-social mt-4 pt-2">
-                    <ul class="list-inline mb-0">
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-facebook"></i
-                        ></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-twitter"></i
-                        ></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-google"></i
-                        ></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-pinterest"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
+            <div class="d-flex justify-content-between flex-row flex-wrap">
+            <div class="mx-2" *ngFor="let team of teamInfo">
+              <div class="mt-4">
+                <h5 class="mt-2">{{team.name}}</h5>
+                <p class="team-badge bg-primary text-white rounded f-14 mt-2">
+                  {{team.course}}
+                </p>
+                <p class="text-muted mt-2">
+                  <a href="mailto:{{team.email}}" class="text-reset"
+                        ><i class="fa fa-envelope"></i
+                      > {{team.email}}</a>
+                </p>
+                <p class="text-muted mt-3">
+                  <a href="tel:{{team.phone}}" class="text-reset"
+                  ><i class="fa fa-phone"></i
+                > {{team.phone}}</a>
+                </p>
               </div>
-              <div class="col-lg-6">
-                <div class="mt-4">
-                  <h5 class="mt-2">Krishna</h5>
-                  <p class="team-badge bg-primary text-white rounded f-14 mt-2">
-                    #Krinshna
-                  </p>
-                  <p class="text-muted mt-3">
-                    Anterdum maleada fames Integer molestie ante primis nulla
-                    facibus felis ulputate platea elit.
-                  </p>
-
-                  <div class="team-social mt-4 pt-2">
-                    <ul class="list-inline mb-0">
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-facebook"></i
-                        ></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-twitter"></i
-                        ></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-google"></i
-                        ></a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="" class="text-reset"
-                          ><i class="fa fa-pinterest"></i
-                        ></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+            </div>
             </div>
           </div>
         </div>
